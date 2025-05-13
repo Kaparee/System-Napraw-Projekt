@@ -2,15 +2,22 @@ package pl.naprawy.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import pl.naprawy.model.*;
+import pl.naprawy.util.ServiceInjector;
+
+import java.io.IOException;
 import java.sql.Timestamp;
 
 public class UserController extends BaseController {
 
     @FXML private Label nameLabel, companyLabel, surnameLabel, phoneLabel, emailLabel, companyAddressLabel;
     @FXML private TextArea descriptionArea, serialnumberArea;
-    @FXML private Button sendButton, clearButton;
+    @FXML private Button sendButton, clearButton, statusButton, exportButton, logoutButton;
 
     public void setClientInfo(String username) {
         Client client = getClient();
@@ -70,6 +77,47 @@ public class UserController extends BaseController {
     private void clearForm(ActionEvent event) {
         descriptionArea.setText("");
         serialnumberArea.setText("");
+    }
+
+    @FXML
+    private void onStatusButtonClicked(){
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/pl/naprawy/fxml/Status-scene-user.fxml"));
+        try {
+            Parent root = fxmlLoader.load();
+            UserController userController = fxmlLoader.getController();
+
+            ServiceInjector.injectAllServices(userController);
+
+            userController.setUsername(username);
+            userController.setClientInfo(username);
+
+            Stage stage = (Stage) statusButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void onExportClicked(){
+
+    }
+
+    @FXML
+    private void onLogoutClicked(){
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/pl/naprawy/fxml/Login-scene.fxml"));
+        try {
+            Parent root = fxmlLoader.load();
+
+            Stage stage = (Stage) logoutButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

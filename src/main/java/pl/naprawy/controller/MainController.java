@@ -35,7 +35,7 @@ public class MainController {
     }
 
     @FXML
-    private void requestForAccount(javafx.event.ActionEvent event) {
+    private void createNewAccount(javafx.event.ActionEvent event) {
         System.out.println("Kliknięto przycisk: Złóż wniosek o założenie konta pracownika");
     }
 
@@ -46,14 +46,11 @@ public class MainController {
             Parent root = fxmlLoader.load();
             UserController userController = fxmlLoader.getController();
 
-            // Wstrzykujemy serwisy
             ServiceInjector.injectAllServices(userController);
 
-            // Ustawiamy dane
             userController.setUsername(username);
             userController.setClientInfo(username);
 
-            // Zmiana sceny
             Stage stage = (Stage) loginButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();

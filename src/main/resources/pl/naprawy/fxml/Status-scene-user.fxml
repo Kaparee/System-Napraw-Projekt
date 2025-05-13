@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="581.0" prefWidth="869.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.naprawy.controller.UserStatusController">
+    <children>
+        <VBox alignment="TOP_CENTER" layoutY="1.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="384.0" prefWidth="270.0" spacing="5.0">
+            <children>
+                <ImageView fitHeight="103.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/client.png" />
+                    </image>
+                </ImageView>
+                <Label fx:id="nameLabel" alignment="CENTER" prefHeight="30.0" prefWidth="400.0" text="Label">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </padding>
+                </Label>
+                <Label fx:id="surnameLabel" alignment="CENTER" prefHeight="30.0" prefWidth="400.0" text="Label">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </padding>
+                </Label>
+                <Label fx:id="phoneLabel" alignment="CENTER" prefHeight="30.0" prefWidth="400.0" text="Label">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </padding>
+                </Label>
+                <Label fx:id="emailLabel" alignment="CENTER" prefHeight="30.0" prefWidth="400.0" text="Label">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </padding>
+                </Label>
+                <Label fx:id="companyLabel" alignment="CENTER" prefHeight="30.0" prefWidth="400.0" text="Label">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </padding>
+                </Label>
+                <Label fx:id="companyAddressLabel" alignment="CENTER" prefHeight="30.0" prefWidth="400.0" text="Label" wrapText="true">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </padding>
+                </Label>
+            </children>
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+        </VBox>
+        <VBox alignment="TOP_CENTER" layoutX="270.0" prefHeight="581.0" prefWidth="598.0" spacing="15.0">
+            <padding>
+                <Insets bottom="20.0" right="20.0" top="20.0" />
+            </padding>
+         <children>
+            <TableView prefHeight="619.0" prefWidth="570.0">
+              <columns>
+                <TableColumn prefWidth="96.0" text="Description" />
+                <TableColumn prefWidth="96.0" text="Created" />
+                  <TableColumn prefWidth="96.0" text="Updated" />
+                  <TableColumn prefWidth="96.0" text="Technician" />
+                  <TableColumn prefWidth="96.0" text="Device" />
+                  <TableColumn prefWidth="96.0" text="Status" />
+              </columns>
+            </TableView>
+         </children>
+        </VBox>
+        <VBox alignment="TOP_CENTER" layoutX="1.0" layoutY="384.0" prefHeight="198.0" prefWidth="270.0" spacing="15.0">
+            <children>
+                <Button fx:id="reportButton" mnemonicParsing="false" onAction="#onReportButtonClicked" text="Prześlij nowe zgłoszenie" />
+                <Button fx:id="exportButton" mnemonicParsing="false" onAction="#onExportClicked" text="Pobierz swoje dane do pliku" />
+                <Separator prefWidth="200.0" />
+                <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#onLogoutClicked" text="Wyloguj się" />
+            </children>
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+        </VBox>
+    </children>
+</AnchorPane>
