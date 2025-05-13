@@ -2,12 +2,15 @@ package pl.naprawy.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import pl.naprawy.model.UserAccount;
+import pl.naprawy.model.Client;
+import pl.naprawy.service.ClientService;
+import pl.naprawy.service.CompanyService;
 import pl.naprawy.service.LoginService;
 
 import java.io.IOException;
@@ -23,9 +26,13 @@ public class LoginController {
     private Button newAccount;
 
     private LoginService loginService;
+    private ClientService clientService;
+    private CompanyService companyService;
 
     public LoginController(){
         loginService = new LoginService();
+        clientService = new ClientService();
+        companyService = new CompanyService();
     }
 
     @FXML
@@ -37,9 +44,19 @@ public class LoginController {
             System.out.println("Zalogowano pomyślnie!");
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/pl/naprawy/fxml/Main-scene-user.fxml"));
-                Scene scene = new Scene(fxmlLoader.load());
+                Parent root = fxmlLoader.load();
+                UserMainController controller = fxmlLoader.getController();
+
+
+                controller.setClientService(clientService);
+                controller.setCompanyService(companyService);
+                controller.setClientInfo(username);
+
+
+                Scene scene = new Scene(root);
                 Stage stage = (Stage) loginButton.getScene().getWindow();
                 stage.setScene(scene);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -56,6 +73,7 @@ public class LoginController {
             System.out.println("Błędna nazwa użytkownika lub hasło.");
         }
     }
+
 
     @FXML
     private void requestForAccount(){

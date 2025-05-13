@@ -13,6 +13,8 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
 
         <mapping class="pl.naprawy.model.UserAccount"/>
+        <mapping class="pl.naprawy.model.Client"/>
+        <mapping class="pl.naprawy.model.Company"/>
 
     </session-factory>
 </hibernate-configuration>
