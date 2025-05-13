@@ -9,8 +9,8 @@ public class CompanyService {
     Session session = HibernateUtil.getSessionFactory().openSession();
 
 
-    public Company getCompanyById(int id) {
-        String hql = "FROM Company co WHERE co.id = :id";
+    public Company getCompanyById(Long id) {
+        String hql = "SELECT co FROM Company co WHERE co.id = :id";
         Query<Company> query = session.createQuery(hql, Company.class);
         query.setParameter("id", id);
 
