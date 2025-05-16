@@ -14,7 +14,7 @@ public class ClientService {
 
 
     public Client getClientByLogin(String login) {
-        String hql = "SELECT c FROM Client c JOIN UserAccount u ON c.id = u.client_id WHERE u.login = :login";
+        String hql = "SELECT c FROM Client c JOIN UserAccount u ON c.id = u.client.id WHERE u.login = :login";
         Query<Client> query = session.createQuery(hql, Client.class);
         query.setParameter("login",login);
 

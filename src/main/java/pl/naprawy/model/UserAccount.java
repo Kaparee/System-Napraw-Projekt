@@ -13,8 +13,14 @@ public class UserAccount {
 
     private String secured_password;
     private String role;
-    private Integer client_id;
-    private Integer technician_id;
+
+    @OneToOne
+    @JoinColumn(name = "client_id", referencedColumnName = "id")
+    private Client client;
+
+    @OneToOne
+    @JoinColumn(name = "technician_id", referencedColumnName = "id")
+    private Technician technician;
 
     public Long getId() {
         return id;
@@ -48,19 +54,19 @@ public class UserAccount {
         this.role = role;
     }
 
-    public int getClient_id() {
-        return client_id;
+    public Client getClient() {
+        return client;
     }
 
-    public void setClient_id(int client_id) {
-        this.client_id = client_id;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
-    public int getTechnician_id() {
-        return technician_id;
+    public Technician getTechnician() {
+        return technician;
     }
 
-    public void setTechnician_id(int technician_id) {
-        this.technician_id = technician_id;
+    public void setTechnician(Technician technician) {
+        this.technician = technician;
     }
 }

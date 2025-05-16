@@ -1,9 +1,6 @@
 package pl.naprawy.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Client {
@@ -14,7 +11,10 @@ public class Client {
     private String name;
     private String phone;
     private String email;
-    private int company_id;
+
+    @ManyToOne
+    @JoinColumn(name = "company_id") // Określa kolumnę klucza obcego w tabeli Client
+    private Company company;
 
     public Long getId() {
         return id;
@@ -48,12 +48,12 @@ public class Client {
         this.email = email;
     }
 
-    public int getCompany_id() {
-        return company_id;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setCompany_id(int company_id) {
-        this.company_id = company_id;
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     public Client() {

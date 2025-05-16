@@ -59,9 +59,9 @@ public class UserController extends BaseController {
         Timestamp now = new Timestamp(System.currentTimeMillis());
 
         RepairOrder order = new RepairOrder();
-        order.setClient_id(client.getId());
-        order.setCompany_id(company.getId());
-        order.setDevice_id(device.getId());
+        order.setClient(client);
+        order.setCompany(company);
+        order.setDevice(device);
         order.setDescription(description);
         order.setCreated_at(now);
         order.setUpdated_at(now);

@@ -1,9 +1,6 @@
 package pl.naprawy.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -16,11 +13,22 @@ public class RepairOrder {
     private String description;
     private Timestamp created_at;
     private Timestamp updated_at;
-    private Long client_id;
-    private Long technician_id;
-    private Long device_id;
-    private Long company_id;
 
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
+
+    @ManyToOne
+    @JoinColumn(name = "technician_id")
+    private Technician technician;
+
+    @ManyToOne
+    @JoinColumn(name = "device_id")
+    private Device device;
+
+    @ManyToOne
+    @JoinColumn(name = "company_id")
+    private Company company;
     private String status;
 
     public Long getId() {
@@ -55,36 +63,36 @@ public class RepairOrder {
         this.updated_at = updated_at;
     }
 
-    public Long getClient_id() {
-        return client_id;
+    public Client getClient() {
+        return client;
     }
 
-    public void setClient_id(Long client_id) {
-        this.client_id = client_id;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
-    public Long getTechnician_id() {
-        return technician_id;
+    public Technician getTechnician() {
+        return technician;
     }
 
-    public void setTechnician_id(Long technician_id) {
-        this.technician_id = technician_id;
+    public void setTechnician(Technician technician) {
+        this.technician = technician;
     }
 
-    public Long getDevice_id() {
-        return device_id;
+    public Device getDevice() {
+        return device;
     }
 
-    public void setDevice_id(Long device_id) {
-        this.device_id = device_id;
+    public void setDevice(Device device) {
+        this.device = device;
     }
 
-    public Long getCompany_id() {
-        return company_id;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setCompany_id(Long company_id) {
-        this.company_id = company_id;
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     public String getStatus() {

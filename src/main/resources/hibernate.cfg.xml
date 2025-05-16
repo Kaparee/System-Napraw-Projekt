@@ -18,6 +18,8 @@
         <mapping class="pl.naprawy.model.Company"/>
         <mapping class="pl.naprawy.model.RepairOrder"/>
         <mapping class="pl.naprawy.model.Device"/>
+        <mapping class="pl.naprawy.model.Technician"/>
+        <mapping class="pl.naprawy.model.TechnicianCompany"/>
 
 
     </session-factory>

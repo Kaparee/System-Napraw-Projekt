@@ -40,6 +40,6 @@ public abstract class BaseController {
     }
 
     protected Company getCompany(Client client) {
-        return companyService.getCompanyById((long) client.getCompany_id());
+        return client.getCompany();
     }
 }

@@ -10,10 +10,8 @@ public class Device {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String type;
     private String brand;
-
     private String model;
     private String serial_number;
 
