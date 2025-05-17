@@ -25,7 +25,7 @@
                </font>
             </Label>
             <PasswordField fx:id="passwordField" />
-            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#onLoginClicked" text="Zaloguj" />
+            <Button fx:id="loginButton" text="Zaloguj" defaultButton="true" onAction="#onLoginClicked"/>
             <Button fx:id="newAccount" mnemonicParsing="false" onAction="#createNewAccount" text="Załóż nowe konto pracownika" />
          </children>
          <padding>

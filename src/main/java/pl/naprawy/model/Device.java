@@ -54,4 +54,7 @@ public class Device {
     public void setSerial_number(String serial_number) {
         this.serial_number = serial_number;
     }
+
+    public Device() {
+    }
 }

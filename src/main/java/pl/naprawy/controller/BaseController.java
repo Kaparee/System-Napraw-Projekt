@@ -6,6 +6,7 @@ import pl.naprawy.service.ClientService;
 import pl.naprawy.service.CompanyService;
 import pl.naprawy.service.DeviceService;
 import pl.naprawy.service.RepairOrderService;
+import pl.naprawy.service.UserStatusService;
 
 public abstract class BaseController {
 
@@ -13,6 +14,7 @@ public abstract class BaseController {
     protected CompanyService companyService;
     protected DeviceService deviceService;
     protected RepairOrderService repairOrderService;
+    protected UserStatusService userStatusService;
     protected String username;
 
     public void setClientService(ClientService clientService) {
@@ -29,6 +31,10 @@ public abstract class BaseController {
 
     public void setRepairOrderService(RepairOrderService repairOrderService) {
         this.repairOrderService = repairOrderService;
+    }
+
+    public void setUserStatusService(UserStatusService userStatusService) {
+        this.userStatusService = userStatusService;
     }
 
     public void setUsername(String username) {
