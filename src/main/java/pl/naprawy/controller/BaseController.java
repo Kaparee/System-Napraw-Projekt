@@ -6,35 +6,35 @@ import pl.naprawy.service.*;
 
 public abstract class BaseController {
 
-    protected ClientService clientService;
-    protected CompanyService companyService;
-    protected DeviceService deviceService;
-    protected RepairOrderService repairOrderService;
-    protected UserStatusService userStatusService;
-    protected UserExportService userExportService;
+    protected ILoginService loginService;
+    protected IClientService clientService;
+    protected IDeviceService deviceService;
+    protected IRepairOrderService repairOrderService;
+    protected IUserStatusService userStatusService;
+    protected IUserExportService userExportService;
     protected String username;
 
-    public void setClientService(ClientService clientService) {
+    public void setLoginService(ILoginService loginService) {
+        this.loginService = loginService;
+    }
+
+    public void setClientService(IClientService clientService) {
         this.clientService = clientService;
     }
 
-    public void setCompanyService(CompanyService companyService) {
-        this.companyService = companyService;
-    }
-
-    public void setDeviceService(DeviceService deviceService) {
+    public void setDeviceService(IDeviceService deviceService) {
         this.deviceService = deviceService;
     }
 
-    public void setRepairOrderService(RepairOrderService repairOrderService) {
+    public void setRepairOrderService(IRepairOrderService repairOrderService) {
         this.repairOrderService = repairOrderService;
     }
 
-    public void setUserStatusService(UserStatusService userStatusService) {
+    public void setUserStatusService(IUserStatusService userStatusService) {
         this.userStatusService = userStatusService;
     }
 
-    public void setUserExportService(UserExportService userExportService) {
+    public void setUserExportService(IUserExportService userExportService) {
         this.userExportService = userExportService;
     }
 
@@ -49,4 +49,5 @@ public abstract class BaseController {
     protected Company getCompany(Client client) {
         return client.getCompany();
     }
+
 }

@@ -7,12 +7,11 @@ import pl.naprawy.model.RepairOrder;
 import pl.naprawy.util.HibernateUtil;
 import java.util.List;
 
-public class UserStatusService {
-
+public class UserStatusService implements IUserStatusService{
 
     public List<RepairOrder> getUserOrderStatus(Long id){
         Session session = HibernateUtil.getSessionFactory().openSession();
-        String hql = "SELECT c FROM RepairOrder c WHERE client.id = :id ORDER BY c.status ASC";
+        String hql = "SELECT c FROM RepairOrder c WHERE c.client.id = :id ORDER BY c.status ASC";
         Query<RepairOrder> query = session.createQuery(hql, RepairOrder.class);
         query.setParameter("id", id);
 

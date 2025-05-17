@@ -5,11 +5,7 @@ import org.hibernate.query.Query;
 import pl.naprawy.model.Client;
 import pl.naprawy.util.HibernateUtil;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-
-public class ClientService {
+public class ClientService implements IClientService{
     Session session = HibernateUtil.getSessionFactory().openSession();
 
 

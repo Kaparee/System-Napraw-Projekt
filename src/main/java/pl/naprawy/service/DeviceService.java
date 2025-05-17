@@ -5,7 +5,7 @@ import org.hibernate.query.Query;
 import pl.naprawy.model.Device;
 import pl.naprawy.util.HibernateUtil;
 
-public class DeviceService {
+public class DeviceService implements IDeviceService{
     Session session = HibernateUtil.getSessionFactory().openSession();
 
     public Device getDeviceInfo(String serial_number){

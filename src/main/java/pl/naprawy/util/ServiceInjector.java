@@ -6,8 +6,8 @@ import pl.naprawy.service.*;
 public class ServiceInjector {
 
     public static void injectAllServices(BaseController controller) {
+        controller.setLoginService(new LoginService());
         controller.setClientService(new ClientService());
-        controller.setCompanyService(new CompanyService());
         controller.setDeviceService(new DeviceService());
         controller.setRepairOrderService(new RepairOrderService());
         controller.setUserStatusService(new UserStatusService());

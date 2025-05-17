@@ -4,7 +4,7 @@ import org.hibernate.query.Query;
 import org.hibernate.Session;
 import pl.naprawy.util.HibernateUtil;
 
-public class LoginService {
+public class LoginService implements ILoginService {
     public int verifyLogin(String login, String password){
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {

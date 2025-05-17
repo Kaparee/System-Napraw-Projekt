@@ -8,29 +8,35 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import pl.naprawy.service.*;
+import pl.naprawy.util.AlertUtil;
 import pl.naprawy.util.ServiceInjector;
 
-import java.io.IOException;
-
-public class MainController {
+public class MainController extends BaseController {
 
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
     @FXML private Button loginButton, newAccount;
 
-    private final LoginService loginService = new LoginService();
+
+    @FXML
+    private void initialize() {
+        ServiceInjector.injectAllServices(this);
+    }
 
     @FXML
     private void onLoginClicked() {
-        String username = usernameField.getText();
+        String username = usernameField.getText().toLowerCase();
         String password = passwordField.getText();
 
-        int role = loginService.verifyLogin(username, password);
-        switch (role) {
-            case 1 -> openUserPanel(username);
+        try {
+            int role = loginService.verifyLogin(username, password);
 
-            default -> System.out.println("Błędna nazwa użytkownika lub hasło.");
+            switch (role) {
+                case 1 -> openUserPanel(username);
+                default -> AlertUtil.errorAlert("Wystąpił błąd podczas logowania.\nPodano błędne dane lub konto nie istnieje!");
+            }
+        } catch (Exception e){
+            AlertUtil.errorAlert("Wystąpił błąd podczas łączenia z bazą danych.\nSpróbuj ponownie później.");
         }
     }
 
@@ -39,8 +45,7 @@ public class MainController {
         System.out.println("Kliknięto przycisk: Złóż wniosek o założenie konta pracownika");
     }
 
-
-    private void openUserPanel(String username) {
+    private void openUserPanel(String username){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/pl/naprawy/fxml/Main-scene-user.fxml"));
         try {
             Parent root = fxmlLoader.load();
@@ -55,8 +60,8 @@ public class MainController {
             stage.setScene(new Scene(root));
             stage.show();
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            AlertUtil.errorAlert("Wystąpił błąd podczas ładowania strony.\nSpróbuj ponownie później.");
         }
     }
 

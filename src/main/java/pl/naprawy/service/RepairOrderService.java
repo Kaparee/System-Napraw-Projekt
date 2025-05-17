@@ -6,7 +6,7 @@ import pl.naprawy.util.HibernateUtil;
 
 import java.sql.Timestamp;
 
-public class RepairOrderService {
+public class RepairOrderService implements IRepairOrderService {
     Session session = HibernateUtil.getSessionFactory().openSession();
 
     public void sendRepairOrder(RepairOrder repairOrder){

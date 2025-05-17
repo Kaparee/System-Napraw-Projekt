@@ -13,7 +13,7 @@ public class Client {
     private String email;
 
     @ManyToOne
-    @JoinColumn(name = "company_id") // Określa kolumnę klucza obcego w tabeli Client
+    @JoinColumn(name = "company_id")
     private Company company;
 
     public Long getId() {

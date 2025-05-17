@@ -11,11 +11,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import pl.naprawy.model.RepairOrder;
 import pl.naprawy.model.Technician;
+import pl.naprawy.util.AlertUtil;
 import pl.naprawy.util.DateFormatterUtil;
 import pl.naprawy.util.ServiceInjector;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -71,8 +69,8 @@ public class UserStatusController extends UserController {
             stage.setScene(new Scene(root));
             stage.show();
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            AlertUtil.errorAlert("Wystąpił błąd podczas ładowania strony.\nSpróbuj ponownie później.");
         }
     }
 
@@ -100,26 +98,31 @@ public class UserStatusController extends UserController {
 
     @FXML
     public void deleteRaport(){
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Potwierdzenie");
-        alert.setHeaderText("Czy na pewno chcesz usunąć swoje zgłoszenie?");
-        alert.setContentText("Tej operacji nie można cofnąć!.");
+        RepairOrder selected = tableView.getSelectionModel().getSelectedItem();
+        if (selected.getStatus().equals("Nowy")) {
+            Optional<ButtonType> result = AlertUtil.confirmAlert("Usunięcie zgłoszenia");
+            if (result.isPresent() && result.get() == ButtonType.OK) {
 
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get()==ButtonType.OK) {
-            RepairOrder selected = tableView.getSelectionModel().getSelectedItem();
-            userStatusService.deleteUserOrder(selected.getId());
-            showInformation();
-            createdLabel.setText("");
-            updatedLabel.setText("");
-            descriptionLabel.setText("");
-            technicianLabel.setText("");
-            deviceLabel.setText("");
-            statusLabel.setText("");
+                userStatusService.deleteUserOrder(selected.getId());
+                showInformation();
+                createdLabel.setText("");
+                updatedLabel.setText("");
+                descriptionLabel.setText("");
+                technicianLabel.setText("");
+                deviceLabel.setText("");
+                statusLabel.setText("");
+            }
+        } else {
+            AlertUtil.informationAlert("Nie można usunąć zgłoszenia, które jest już rozpatrywane lub zakończone.");
         }
     }
     @FXML
-    private void onExportClicked(){
-        userExportService.exportFile(clientService.getClientByLogin(username), userStatusService.getUserOrderStatus(getClient().getId()));
+    private void onExportClicked() {
+        try {
+            userExportService.exportFile(clientService.getClientByLogin(username), userStatusService.getUserOrderStatus(getClient().getId()));
+            AlertUtil.informationAlert("Pomyślnie pobrano dane\nKliknij OK aby wyłączyć okno");
+        } catch (Exception e) {
+            AlertUtil.errorAlert("Wystąpił błąd podczas pobierania danych.\nSpróbuj ponownie później.");
+        }
     }
 }

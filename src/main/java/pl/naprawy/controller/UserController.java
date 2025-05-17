@@ -8,8 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import pl.naprawy.model.*;
+import pl.naprawy.util.AlertUtil;
 import pl.naprawy.util.ServiceInjector;
-
 import java.io.IOException;
 import java.sql.Timestamp;
 
@@ -37,38 +37,37 @@ public class UserController extends BaseController {
     @FXML
     private void sendForm(ActionEvent event) {
         Client client = getClient();
-        if (client == null) {
-            System.out.println("Brak klienta");
-            return;
-        }
-
         Company company = getCompany(client);
         if (company == null) {
-            System.out.println("Brak firmy");
+            AlertUtil.errorAlert("Nie jesteś przypisany do żadnej firmy.\nSkontaktuj się bezpośrednio z twoim przełożonym.");
             return;
         }
 
         String serial = serialnumberArea.getText();
         Device device = deviceService.getDeviceInfo(serial);
         if (device == null) {
-            System.out.println("Brak urządzenia");
+            AlertUtil.errorAlert("Brak podanego urządzenia w rejestrze!");
             return;
         }
 
         String description = descriptionArea.getText();
         Timestamp now = new Timestamp(System.currentTimeMillis());
 
-        RepairOrder order = new RepairOrder();
-        order.setClient(client);
-        order.setCompany(company);
-        order.setDevice(device);
-        order.setDescription(description);
-        order.setCreated_at(now);
-        order.setUpdated_at(now);
-        order.setStatus("Nowy");
+        try {
+            RepairOrder order = new RepairOrder();
+            order.setClient(client);
+            order.setCompany(company);
+            order.setDevice(device);
+            order.setDescription(description);
+            order.setCreated_at(now);
+            order.setUpdated_at(now);
+            order.setStatus("Nowy");
 
-        repairOrderService.sendRepairOrder(order);
-        System.out.println("Zgłoszenie wysłane");
+            repairOrderService.sendRepairOrder(order);
+            AlertUtil.informationAlert("Zgłoszenie zostało wysłane\nKliknij OK aby wyłączyć okno");
+        } catch (Exception e){
+            AlertUtil.errorAlert("Wystąpił błąd podczas wysyłania zgłoszenia.");
+        }
         descriptionArea.setText("");
         serialnumberArea.setText("");
     }
@@ -95,29 +94,40 @@ public class UserController extends BaseController {
             stage.setScene(new Scene(root));
             stage.show();
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            AlertUtil.errorAlert("Wystąpił błąd podczas ładowania strony.\nSpróbuj ponownie później.");
         }
     }
 
     @FXML
-    private void onExportClicked(){
-        userExportService.exportFile(clientService.getClientByLogin(username), userStatusService.getUserOrderStatus(getClient().getId()));
+    private void onExportClicked() {
+        try {
+            userExportService.exportFile(clientService.getClientByLogin(username), userStatusService.getUserOrderStatus(getClient().getId()));
+            AlertUtil.informationAlert("Pomyślnie pobrano dane\nKliknij OK aby wyłączyć okno");
+        } catch (Exception e) {
+            AlertUtil.errorAlert("Wystąpił błąd podczas pobierania danych.\nSpróbuj ponownie później.");
+        }
     }
 
     @FXML
     private void onLogoutClicked(){
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/pl/naprawy/fxml/Login-scene.fxml"));
-        try {
-            Parent root = fxmlLoader.load();
-
-            Stage stage = (Stage) logoutButton.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        AlertUtil.showTimedAlert(
+                Alert.AlertType.INFORMATION,
+                "Informacja",
+                null,
+                "Za 5 sekund nastąpi wylogowanie",
+                () -> {
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/pl/naprawy/fxml/Login-scene.fxml"));
+                    try {
+                        Parent root = fxmlLoader.load();
+                        Stage stage = (Stage) logoutButton.getScene().getWindow();
+                        stage.setScene(new Scene(root));
+                        stage.show();
+                    } catch (IOException e) {
+                        AlertUtil.errorAlert("Wystąpił błąd podczas wylogowywania.\nSpróbuj ponownie później.");
+                    }
+                }
+        );
     }
 
 }
