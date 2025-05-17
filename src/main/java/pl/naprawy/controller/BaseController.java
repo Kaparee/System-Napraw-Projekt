@@ -2,11 +2,7 @@ package pl.naprawy.controller;
 
 import pl.naprawy.model.Client;
 import pl.naprawy.model.Company;
-import pl.naprawy.service.ClientService;
-import pl.naprawy.service.CompanyService;
-import pl.naprawy.service.DeviceService;
-import pl.naprawy.service.RepairOrderService;
-import pl.naprawy.service.UserStatusService;
+import pl.naprawy.service.*;
 
 public abstract class BaseController {
 
@@ -15,6 +11,7 @@ public abstract class BaseController {
     protected DeviceService deviceService;
     protected RepairOrderService repairOrderService;
     protected UserStatusService userStatusService;
+    protected UserExportService userExportService;
     protected String username;
 
     public void setClientService(ClientService clientService) {
@@ -35,6 +32,10 @@ public abstract class BaseController {
 
     public void setUserStatusService(UserStatusService userStatusService) {
         this.userStatusService = userStatusService;
+    }
+
+    public void setUserExportService(UserExportService userExportService) {
+        this.userExportService = userExportService;
     }
 
     public void setUsername(String username) {

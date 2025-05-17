@@ -17,7 +17,7 @@ public class MainController {
 
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
-    @FXML private Button loginButton;
+    @FXML private Button loginButton, newAccount;
 
     private final LoginService loginService = new LoginService();
 

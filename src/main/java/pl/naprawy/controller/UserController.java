@@ -102,7 +102,7 @@ public class UserController extends BaseController {
 
     @FXML
     private void onExportClicked(){
-
+        userExportService.exportFile(clientService.getClientByLogin(username), userStatusService.getUserOrderStatus(getClient().getId()));
     }
 
     @FXML

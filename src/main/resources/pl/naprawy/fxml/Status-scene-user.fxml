@@ -81,12 +81,12 @@
          <children>
             <TableView fx:id="tableView" prefHeight="209.0" prefWidth="711.0">
               <columns>
-                <TableColumn fx:id="descriptionColumn" prefWidth="96.0" text="Description" />
-                <TableColumn fx:id="createdColumn" prefWidth="96.0" text="Created" />
-                  <TableColumn fx:id="updatedColumn" prefWidth="96.0" text="Updated" />
-                  <TableColumn fx:id="technicianColumn" prefWidth="96.0" text="Technician" />
-                  <TableColumn fx:id="deviceColumn" prefWidth="96.0" text="Device" />
-                  <TableColumn fx:id="statusColumn" prefWidth="96.0" text="Status" />
+                <TableColumn fx:id="descriptionColumn" prefWidth="118.0" text="Description" />
+                <TableColumn fx:id="createdColumn" prefWidth="118.0" text="Created" />
+                  <TableColumn fx:id="updatedColumn" prefWidth="118.0" text="Updated" />
+                  <TableColumn fx:id="technicianColumn" prefWidth="118.0" text="Technician" />
+                  <TableColumn fx:id="deviceColumn" prefWidth="118.0" text="Device" />
+                  <TableColumn fx:id="statusColumn" prefWidth="118.0" text="Status" />
               </columns>
             </TableView>
             <Label fx:id="descriptionLabel" alignment="CENTER" contentDisplay="CENTER" maxHeight="100.0" maxWidth="400.0" prefHeight="60.0" prefWidth="400.0" text="Opis" textAlignment="CENTER" wrapText="true">

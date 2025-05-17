@@ -9,18 +9,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import pl.naprawy.model.Device;
 import pl.naprawy.model.RepairOrder;
 import pl.naprawy.model.Technician;
-import pl.naprawy.service.UserStatusService;
 import pl.naprawy.util.DateFormatterUtil;
 import pl.naprawy.util.ServiceInjector;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 public class UserStatusController extends UserController {
@@ -121,5 +117,9 @@ public class UserStatusController extends UserController {
             deviceLabel.setText("");
             statusLabel.setText("");
         }
+    }
+    @FXML
+    private void onExportClicked(){
+        userExportService.exportFile(clientService.getClientByLogin(username), userStatusService.getUserOrderStatus(getClient().getId()));
     }
 }

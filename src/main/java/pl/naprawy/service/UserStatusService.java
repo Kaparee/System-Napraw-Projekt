@@ -3,13 +3,8 @@ package pl.naprawy.service;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import org.w3c.dom.ls.LSOutput;
-import pl.naprawy.model.Client;
 import pl.naprawy.model.RepairOrder;
 import pl.naprawy.util.HibernateUtil;
-
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class UserStatusService {

@@ -11,5 +11,6 @@ public class ServiceInjector {
         controller.setDeviceService(new DeviceService());
         controller.setRepairOrderService(new RepairOrderService());
         controller.setUserStatusService(new UserStatusService());
+        controller.setUserExportService(new UserExportService());
     }
 }
