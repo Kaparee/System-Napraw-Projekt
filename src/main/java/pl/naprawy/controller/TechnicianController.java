@@ -42,7 +42,6 @@ public class TechnicianController extends BaseController{
 
     public void setTechnicianInfo(String username) {
         Technician technician = getTechnician();
-        System.out.println("DEBUG: technician = " + technician);
 
         if (technician != null) {
             String[] nameParts = technician.getName().split(" ");

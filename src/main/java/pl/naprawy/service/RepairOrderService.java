@@ -17,8 +17,6 @@ public class RepairOrderService implements IRepairOrderService {
             session.beginTransaction();
             session.save(repairOrder);
             session.getTransaction().commit();
-        } catch (Exception e){
-            System.err.println("Błąd zapisu: "+e.getMessage());
         } finally {
             session.close();
         }

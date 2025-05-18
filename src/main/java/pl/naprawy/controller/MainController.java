@@ -30,12 +30,10 @@ public class MainController extends BaseController {
 
         try {
             int role = loginService.verifyLogin(username, password);
-            System.out.println("DEBUG: rola dla loginu " + username + " = " + role);
-
 
             switch (role) {
                 case 1 -> openUserPanel(username);
-                case 2 -> openTechnicianPanel(username, password);
+                case 2 -> openTechnicianPanel(username);
                 default -> AlertUtil.errorAlert("Wystąpił błąd podczas logowania.\nPodano błędne dane lub konto nie istnieje!");
             }
         } catch (Exception e){
@@ -70,7 +68,7 @@ public class MainController extends BaseController {
         }
     }
 
-    private void openTechnicianPanel(String username, String password){
+    private void openTechnicianPanel(String username){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/pl/naprawy/fxml/Main-scene-technician.fxml"));
         try {
             Parent root = fxmlLoader.load();
