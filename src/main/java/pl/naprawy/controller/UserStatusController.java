@@ -36,7 +36,7 @@ public class UserStatusController extends UserController {
 
     @FXML
     public void initialize(){
-        descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+        descriptionColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDescription()));
         createdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(DateFormatterUtil.format(cellData.getValue().getCreated_at())));
         updatedColumn.setCellValueFactory(cellData -> new SimpleStringProperty(DateFormatterUtil.format(cellData.getValue().getUpdated_at())));
         technicianColumn.setCellValueFactory(cellData -> new SimpleStringProperty(getTechnicianInfo(cellData.getValue())));
@@ -76,7 +76,7 @@ public class UserStatusController extends UserController {
 
     @FXML
     public void showInformation(){
-        List<RepairOrder> orders = userStatusService.getUserOrderStatus(getClient().getId());
+        List<RepairOrder> orders = repairOrderService.getUserOrderStatus(getClient().getId());
         tableView.setItems(FXCollections.observableArrayList(orders));
     }
 
@@ -103,7 +103,7 @@ public class UserStatusController extends UserController {
             Optional<ButtonType> result = AlertUtil.confirmAlert("Usunięcie zgłoszenia");
             if (result.isPresent() && result.get() == ButtonType.OK) {
 
-                userStatusService.deleteUserOrder(selected.getId());
+                repairOrderService.deleteUserOrder(selected.getId());
                 showInformation();
                 createdLabel.setText("");
                 updatedLabel.setText("");
@@ -119,7 +119,7 @@ public class UserStatusController extends UserController {
     @FXML
     private void onExportClicked() {
         try {
-            userExportService.exportFile(clientService.getClientByLogin(username), userStatusService.getUserOrderStatus(getClient().getId()));
+            userExportService.exportFile(clientService.getClientByLogin(username), repairOrderService.getUserOrderStatus(getClient().getId()));
             AlertUtil.informationAlert("Pomyślnie pobrano dane\nKliknij OK aby wyłączyć okno");
         } catch (Exception e) {
             AlertUtil.errorAlert("Wystąpił błąd podczas pobierania danych.\nSpróbuj ponownie później.");

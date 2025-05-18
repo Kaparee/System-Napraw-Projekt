@@ -30,13 +30,17 @@ public class MainController extends BaseController {
 
         try {
             int role = loginService.verifyLogin(username, password);
+            System.out.println("DEBUG: rola dla loginu " + username + " = " + role);
+
 
             switch (role) {
                 case 1 -> openUserPanel(username);
+                case 2 -> openTechnicianPanel(username, password);
                 default -> AlertUtil.errorAlert("Wystąpił błąd podczas logowania.\nPodano błędne dane lub konto nie istnieje!");
             }
         } catch (Exception e){
             AlertUtil.errorAlert("Wystąpił błąd podczas łączenia z bazą danych.\nSpróbuj ponownie później.");
+            e.printStackTrace();
         }
     }
 
@@ -62,9 +66,28 @@ public class MainController extends BaseController {
 
         } catch (Exception e) {
             AlertUtil.errorAlert("Wystąpił błąd podczas ładowania strony.\nSpróbuj ponownie później.");
+            e.printStackTrace();
         }
     }
 
+    private void openTechnicianPanel(String username, String password){
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/pl/naprawy/fxml/Main-scene-technician.fxml"));
+        try {
+            Parent root = fxmlLoader.load();
+            TechnicianController technicianController = fxmlLoader.getController();
 
+            ServiceInjector.injectAllServices(technicianController);
 
+            technicianController.setUsername(username);
+            technicianController.setTechnicianInfo(username);
+
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (Exception e) {
+            AlertUtil.errorAlert("Wystąpił błąd podczas ładowania strony.\nSpróbuj ponownie później.");
+            e.printStackTrace();
+        }
+    }
 }

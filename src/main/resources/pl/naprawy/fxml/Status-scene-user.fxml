@@ -81,11 +81,11 @@
          <children>
             <TableView fx:id="tableView" prefHeight="209.0" prefWidth="711.0">
               <columns>
-                <TableColumn fx:id="descriptionColumn" prefWidth="118.0" text="Description" />
-                <TableColumn fx:id="createdColumn" prefWidth="118.0" text="Created" />
-                  <TableColumn fx:id="updatedColumn" prefWidth="118.0" text="Updated" />
-                  <TableColumn fx:id="technicianColumn" prefWidth="118.0" text="Technician" />
-                  <TableColumn fx:id="deviceColumn" prefWidth="118.0" text="Device" />
+                <TableColumn fx:id="descriptionColumn" prefWidth="118.0" text="Opis" />
+                <TableColumn fx:id="createdColumn" prefWidth="118.0" text="Utworzono" />
+                  <TableColumn fx:id="updatedColumn" prefWidth="118.0" text="Zaktualizowano" />
+                  <TableColumn fx:id="technicianColumn" prefWidth="118.0" text="Technik" />
+                  <TableColumn fx:id="deviceColumn" prefWidth="118.0" text="Urządzenie" />
                   <TableColumn fx:id="statusColumn" prefWidth="118.0" text="Status" />
               </columns>
             </TableView>

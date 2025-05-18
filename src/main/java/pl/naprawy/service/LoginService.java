@@ -15,9 +15,9 @@ public class LoginService implements ILoginService {
 
             Object[] result = query.uniqueResult();
             if (result!=null){
-                Long clientID = (Long) result[0]; // IDs are usually Long
+                Long clientID = (Long) result[0];
                 Long technicianID = (Long) result[1];
-
+                System.out.println("Login: " + login + ", ClientID: " + clientID + ", TechnicianID: " + technicianID);
                 if (clientID!=null){
                     return 1;
                 } else if (technicianID!=null) {
