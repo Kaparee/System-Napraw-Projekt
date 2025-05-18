@@ -44,7 +44,18 @@ public class MainController extends BaseController {
 
     @FXML
     private void createNewAccount(javafx.event.ActionEvent event) {
-        System.out.println("Kliknięto przycisk: Złóż wniosek o założenie konta pracownika");
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/pl/naprawy/fxml/New-account-scene.fxml"));
+        try {
+            Parent root = fxmlLoader.load();
+
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (Exception e) {
+            AlertUtil.errorAlert("Wystąpił błąd podczas ładowania strony.\nSpróbuj ponownie później.");
+            e.printStackTrace();
+        }
     }
 
     private void openUserPanel(String username){
