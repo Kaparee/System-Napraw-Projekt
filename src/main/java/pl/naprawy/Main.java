@@ -11,7 +11,7 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/pl/naprawy/fxml/Login-scene.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("System zgłoszeń napraw");
+        stage.setTitle("NAPRAW.IO");
         stage.setScene(scene);
         stage.show();
     }

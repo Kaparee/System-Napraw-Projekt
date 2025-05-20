@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 import pl.naprawy.model.*;
 import pl.naprawy.util.AlertUtil;
 import pl.naprawy.util.ServiceInjector;
-import java.io.IOException;
 import java.sql.Timestamp;
 
 public class UserController extends BaseController {
@@ -22,7 +21,6 @@ public class UserController extends BaseController {
     public void setClientInfo(String username) {
         Client client = getClient();
         Company company = getCompany(client);
-
         if (client != null && company != null) {
             String[] nameParts = client.getName().split(" ");
             nameLabel.setText(nameParts[0]);
@@ -68,14 +66,14 @@ public class UserController extends BaseController {
         } catch (Exception e){
             AlertUtil.errorAlert("Wystąpił błąd podczas wysyłania zgłoszenia.");
         }
-        descriptionArea.setText("");
-        serialnumberArea.setText("");
+        descriptionArea.setText(null);
+        serialnumberArea.setText(null);
     }
 
     @FXML
     private void clearForm(ActionEvent event) {
-        descriptionArea.setText("");
-        serialnumberArea.setText("");
+        descriptionArea.setText(null);
+        serialnumberArea.setText(null);
     }
 
     @FXML
@@ -84,16 +82,12 @@ public class UserController extends BaseController {
         try {
             Parent root = fxmlLoader.load();
             UserController userController = fxmlLoader.getController();
-
             ServiceInjector.injectAllServices(userController);
-
             userController.setUsername(username);
             userController.setClientInfo(username);
-
             Stage stage = (Stage) statusButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
-
         } catch (Exception e) {
             AlertUtil.errorAlert("Wystąpił błąd podczas ładowania strony.\nSpróbuj ponownie później.");
         }
@@ -123,7 +117,7 @@ public class UserController extends BaseController {
                         Stage stage = (Stage) logoutButton.getScene().getWindow();
                         stage.setScene(new Scene(root));
                         stage.show();
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         AlertUtil.errorAlert("Wystąpił błąd podczas wylogowywania.\nSpróbuj ponownie później.");
                     }
                 }

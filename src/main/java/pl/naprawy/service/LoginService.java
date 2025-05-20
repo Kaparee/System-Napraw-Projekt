@@ -1,32 +1,39 @@
 package pl.naprawy.service;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
+import org.hibernate.HibernateException;
 import org.hibernate.query.Query;
 import org.hibernate.Session;
+import pl.naprawy.model.UserAccount;
+import pl.naprawy.util.AlertUtil;
 import pl.naprawy.util.HibernateUtil;
 
 public class LoginService implements ILoginService {
     public int verifyLogin(String login, String password){
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        try {
-            String hql = "SELECT ua.client.id, ua.technician.id FROM UserAccount ua WHERE ua.login = :login AND ua.secured_password = :password";
-            Query<Object[]> query = session.createQuery(hql, Object[].class);
-            query.setParameter("login",login);
-            query.setParameter("password",password);
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            String hql = "SELECT ua FROM UserAccount ua WHERE ua.login = :login";
+            Query<UserAccount> query = session.createQuery(hql, UserAccount.class);
+            query.setParameter("login", login);
 
-            Object[] result = query.uniqueResult();
-            if (result!=null){
-                Long clientID = (Long) result[0];
-                Long technicianID = (Long) result[1];
-                System.out.println("Login: " + login + ", ClientID: " + clientID + ", TechnicianID: " + technicianID);
-                if (clientID!=null){
+            UserAccount user = query.uniqueResult();
+            if (user == null) {
+                return 0;
+            }
+
+            String hashedPassword = user.getSecured_password();
+            BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), hashedPassword);
+
+            if (result.verified) {
+                if (user.getClient() != null) {
                     return 1;
-                } else if (technicianID!=null) {
+                } else if (user.getTechnician() != null) {
                     return 2;
                 }
             }
             return 0;
-        } finally {
-            session.close();
+        } catch (HibernateException e){
+            AlertUtil.errorAlert("Wystąpił błąd podczas logowania");
+            return 0;
         }
     }
 }

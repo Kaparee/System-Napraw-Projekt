@@ -6,12 +6,12 @@ import pl.naprawy.model.Technician;
 import pl.naprawy.service.*;
 
 public abstract class BaseController {
-
     protected ILoginService loginService;
     protected IClientService clientService;
     protected ITechnicianService technicianService;
     protected ITechnicianCompanyService technicianCompanyService;
     protected IDeviceService deviceService;
+    protected INewAccountService newAccountService;
     protected IRepairOrderService repairOrderService;
     protected IUserExportService userExportService;
     protected String username;
@@ -24,6 +24,18 @@ public abstract class BaseController {
         this.clientService = clientService;
     }
 
+    public void setTechnicianService(ITechnicianService technicianService) {
+        this.technicianService = technicianService;
+    }
+
+    public void setTechnicianCompanyService(ITechnicianCompanyService technicianCompanyService) {
+        this.technicianCompanyService = technicianCompanyService;
+    }
+
+    public void setNewAccountService(INewAccountService newAccountService) {
+        this.newAccountService = newAccountService;
+    }
+
     public void setDeviceService(IDeviceService deviceService) {
         this.deviceService = deviceService;
     }
@@ -34,14 +46,6 @@ public abstract class BaseController {
 
     public void setUserExportService(IUserExportService userExportService) {
         this.userExportService = userExportService;
-    }
-
-    public void setTechnicianService(ITechnicianService technicianService) {
-        this.technicianService = technicianService;
-    }
-
-    public void setTechnicianCompanyService(ITechnicianCompanyService technicianCompanyService) {
-        this.technicianCompanyService = technicianCompanyService;
     }
 
     public void setUsername(String username) {

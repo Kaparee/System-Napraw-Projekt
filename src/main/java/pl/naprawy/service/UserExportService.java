@@ -2,7 +2,6 @@ package pl.naprawy.service;
 
 import pl.naprawy.model.Client;
 import pl.naprawy.model.RepairOrder;
-import pl.naprawy.model.Technician;
 import pl.naprawy.util.AlertUtil;
 import pl.naprawy.util.DateFormatterUtil;
 import java.io.File;
@@ -20,7 +19,9 @@ public class UserExportService implements IUserExportService{
                 if (ro.getTechnician() != null) {
                     technicianName = ro.getTechnician().getName()+" "+ro.getTechnician().getEmail();
                 }
-                writer.printf("%s, %s, %s, %s, %s, %s%n", ro.getDescription().replace(",", ";"), DateFormatterUtil.format(ro.getCreated_at()), DateFormatterUtil.format(ro.getUpdated_at()), technicianName, ro.getDevice().getBrand()+" "+ro.getDevice().getModel(), ro.getStatus());
+                writer.printf("%s, %s, %s, %s, %s, %s%n", ro.getDescription().replace(",", ";"),
+                        DateFormatterUtil.format(ro.getCreated_at()), DateFormatterUtil.format(ro.getUpdated_at()),
+                        technicianName, ro.getDevice().getBrand()+" "+ro.getDevice().getModel(), ro.getStatus());
             }
         } catch (Exception e) {
             AlertUtil.informationAlert("Błąd podczas tworzenia pliku");

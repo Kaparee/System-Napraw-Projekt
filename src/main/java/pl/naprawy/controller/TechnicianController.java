@@ -2,21 +2,16 @@ package pl.naprawy.controller;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import pl.naprawy.model.*;
 import pl.naprawy.util.AlertUtil;
 import pl.naprawy.util.DateFormatterUtil;
-import pl.naprawy.util.ServiceInjector;
-
-import java.io.IOException;
-import java.sql.Timestamp;
+import java.lang.Exception;
 import java.util.List;
 
 public class TechnicianController extends BaseController{
@@ -42,7 +37,6 @@ public class TechnicianController extends BaseController{
 
     public void setTechnicianInfo(String username) {
         Technician technician = getTechnician();
-
         if (technician != null) {
             String[] nameParts = technician.getName().split(" ");
             nameLabel.setText(nameParts[0]);
@@ -108,7 +102,7 @@ public class TechnicianController extends BaseController{
                         Stage stage = (Stage) logoutButton.getScene().getWindow();
                         stage.setScene(new Scene(root));
                         stage.show();
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         AlertUtil.errorAlert("Wystąpił błąd podczas wylogowywania.\nSpróbuj ponownie później.");
                     }
                 }

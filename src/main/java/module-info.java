@@ -5,6 +5,7 @@ module pl.naprawy.systemnaprawprojekt {
     requires java.naming;
     requires java.sql;
     requires java.persistence;
+    requires bcrypt;
 
     opens pl.naprawy to javafx.fxml, org.hibernate.orm.core;
     exports pl.naprawy;

@@ -18,14 +18,10 @@ import java.util.List;
 import java.util.Optional;
 
 public class UserStatusController extends UserController {
-    @FXML
-    private Button reportButton, deleteButton;
-    @FXML
-    private TableView<RepairOrder> tableView;
-    @FXML
-    private TableColumn<RepairOrder, String> createdColumn, updatedColumn, descriptionColumn, technicianColumn, deviceColumn, statusColumn;
-    @FXML
-    private Label createdLabel, updatedLabel, descriptionLabel, technicianLabel, deviceLabel, statusLabel;
+    @FXML private Button reportButton, deleteButton;
+    @FXML private TableView<RepairOrder> tableView;
+    @FXML private TableColumn<RepairOrder, String> createdColumn, updatedColumn, descriptionColumn, technicianColumn, deviceColumn, statusColumn;
+    @FXML private Label createdLabel, updatedLabel, descriptionLabel, technicianLabel, deviceLabel, statusLabel;
 
     @Override
     @FXML
@@ -59,16 +55,12 @@ public class UserStatusController extends UserController {
         try {
             Parent root = fxmlLoader.load();
             UserController userController = fxmlLoader.getController();
-
             ServiceInjector.injectAllServices(userController);
-
             userController.setUsername(username);
             userController.setClientInfo(username);
-
             Stage stage = (Stage) reportButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
-
         } catch (Exception e) {
             AlertUtil.errorAlert("Wystąpił błąd podczas ładowania strony.\nSpróbuj ponownie później.");
         }
@@ -85,7 +77,6 @@ public class UserStatusController extends UserController {
             RepairOrder selected = tableView.getSelectionModel().getSelectedItem();
             if (selected != null) {
                 String infoTechnician = getTechnicianInfo(selected);
-
                 createdLabel.setText(DateFormatterUtil.format(selected.getCreated_at()));
                 updatedLabel.setText(DateFormatterUtil.format(selected.getUpdated_at()));
                 descriptionLabel.setText(selected.getDescription());
@@ -102,7 +93,6 @@ public class UserStatusController extends UserController {
         if (selected.getStatus().equals("Nowy")) {
             Optional<ButtonType> result = AlertUtil.confirmAlert("Usunięcie zgłoszenia");
             if (result.isPresent() && result.get() == ButtonType.OK) {
-
                 repairOrderService.deleteUserOrder(selected.getId());
                 showInformation();
                 createdLabel.setText("");

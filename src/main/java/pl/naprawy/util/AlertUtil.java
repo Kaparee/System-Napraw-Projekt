@@ -29,7 +29,6 @@ public class AlertUtil {
         alert.setTitle("Potwierdzenie");
         alert.setHeaderText("Czy na pewno chcesz wykonać te akcje?\n"+message);
         alert.setContentText("Tej operacji nie można cofnąć!.");
-
         return alert.showAndWait();
     }
 

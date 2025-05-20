@@ -12,11 +12,9 @@ import pl.naprawy.util.AlertUtil;
 import pl.naprawy.util.ServiceInjector;
 
 public class MainController extends BaseController {
-
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
     @FXML private Button loginButton, newAccount;
-
 
     @FXML
     private void initialize() {
@@ -27,10 +25,8 @@ public class MainController extends BaseController {
     private void onLoginClicked() {
         String username = usernameField.getText().toLowerCase();
         String password = passwordField.getText();
-
         try {
             int role = loginService.verifyLogin(username, password);
-
             switch (role) {
                 case 1 -> openUserPanel(username);
                 case 2 -> openTechnicianPanel(username);
@@ -63,16 +59,12 @@ public class MainController extends BaseController {
         try {
             Parent root = fxmlLoader.load();
             UserController userController = fxmlLoader.getController();
-
             ServiceInjector.injectAllServices(userController);
-
             userController.setUsername(username);
             userController.setClientInfo(username);
-
             Stage stage = (Stage) loginButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
-
         } catch (Exception e) {
             AlertUtil.errorAlert("Wystąpił błąd podczas ładowania strony.\nSpróbuj ponownie później.");
             e.printStackTrace();
@@ -84,16 +76,12 @@ public class MainController extends BaseController {
         try {
             Parent root = fxmlLoader.load();
             TechnicianController technicianController = fxmlLoader.getController();
-
             ServiceInjector.injectAllServices(technicianController);
-
             technicianController.setUsername(username);
             technicianController.setTechnicianInfo(username);
-
             Stage stage = (Stage) loginButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
-
         } catch (Exception e) {
             AlertUtil.errorAlert("Wystąpił błąd podczas ładowania strony.\nSpróbuj ponownie później.");
             e.printStackTrace();
