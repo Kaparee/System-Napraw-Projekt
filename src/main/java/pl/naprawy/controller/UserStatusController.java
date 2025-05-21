@@ -46,7 +46,7 @@ public class UserStatusController extends UserController {
         if (technician == null) {
             return "Brak przypisanego technika";
         }
-        return technician.getName()+"\n "+technician.getEmail();
+        return technician.getName()+"\n"+technician.getEmail();
     }
 
     @FXML

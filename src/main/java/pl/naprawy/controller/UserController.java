@@ -117,6 +117,7 @@ public class UserController extends BaseController {
             stage.show();
         } catch (Exception e) {
             AlertUtil.errorAlert("Wystąpił błąd podczas ładowania strony.\nSpróbuj ponownie później.");
+            e.printStackTrace();
         }
     }
 
