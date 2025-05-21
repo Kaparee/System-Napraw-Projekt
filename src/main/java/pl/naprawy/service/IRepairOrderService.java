@@ -8,5 +8,6 @@ public interface IRepairOrderService {
     void sendRepairOrder(RepairOrder repairOrder);
     List<RepairOrder> getFreeRepairOrder(Long id);
     List<RepairOrder> getUserOrderStatus(Long id);
-    void deleteUserOrder(Long id);
+    void deleteOrder(Long id);
+    List<RepairOrder> getTechnicianReports(Long id);
 }

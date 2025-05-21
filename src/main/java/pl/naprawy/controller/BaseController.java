@@ -14,6 +14,7 @@ public abstract class BaseController {
     protected INewAccountService newAccountService;
     protected IRepairOrderService repairOrderService;
     protected IUserExportService userExportService;
+    protected ITechnicianExportService technicianExportService;
     protected String username;
 
     public void setLoginService(ILoginService loginService) {
@@ -46,6 +47,10 @@ public abstract class BaseController {
 
     public void setUserExportService(IUserExportService userExportService) {
         this.userExportService = userExportService;
+    }
+
+    public void setTechnicianExportService(ITechnicianExportService technicianExportService) {
+        this.technicianExportService = technicianExportService;
     }
 
     public void setUsername(String username) {

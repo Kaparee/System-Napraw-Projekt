@@ -1,9 +1,6 @@
 package pl.naprawy.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Device {
@@ -15,6 +12,10 @@ public class Device {
     private String brand;
     private String model;
     private String serial_number;
+
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
 
     public Long getId() {
         return id;
@@ -54,6 +55,14 @@ public class Device {
 
     public void setSerial_number(String serial_number) {
         this.serial_number = serial_number;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public Device() {

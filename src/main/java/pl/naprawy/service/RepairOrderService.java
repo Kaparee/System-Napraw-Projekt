@@ -47,7 +47,7 @@ public class RepairOrderService implements IRepairOrderService {
         }
     }
 
-    public void deleteUserOrder(Long id){
+    public void deleteOrder(Long id){
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
             Transaction transaction = session.beginTransaction();
             RepairOrder order = session.get(RepairOrder.class, id);
@@ -58,6 +58,18 @@ public class RepairOrderService implements IRepairOrderService {
             session.close();
         }catch (HibernateException e) {
             AlertUtil.errorAlert("Wystąpił błąd podczas usuwania zgłoszenia");
+        }
+    }
+
+    public List<RepairOrder> getTechnicianReports(Long id){
+        try(Session session = HibernateUtil.getSessionFactory().openSession()) {
+            String hql = "SELECT ro FROM RepairOrder ro WHERE ro.technician.id = :id AND ro.status != 'Zakończono'";
+            Query<RepairOrder> query = session.createQuery(hql, RepairOrder.class);
+            query.setParameter("id",id);
+            return query.list();
+        } catch (HibernateException e) {
+            AlertUtil.errorAlert("Wystąpił błąd podczas pobierania zgłoszeń");
+            return null;
         }
     }
 }

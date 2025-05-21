@@ -16,5 +16,6 @@ public class ServiceInjector {
         controller.setNewAccountService(new NewAccountService());
         controller.setRepairOrderService(new RepairOrderService());
         controller.setUserExportService(new UserExportService());
+        controller.setTechnicianExportService(new TechnicianExportService());
     }
 }
