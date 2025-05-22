@@ -51,4 +51,43 @@ public class NewAccountService implements INewAccountService{
             AlertUtil.errorAlert("Wystąpił błąd podczas tworzenia konta");
         }
     }
+
+    public boolean isUsernameTaken(String username) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            String hql = "SELECT COUNT(ua) FROM UserAccount ua WHERE ua.login = :username";
+            Query<Long> query = session.createQuery(hql, Long.class);
+            query.setParameter("username", username);
+            return query.uniqueResult() > 0;
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            AlertUtil.errorAlert("Błąd bazy danych podczas sprawdzania nazwy użytkownika.");
+            return true;
+        }
+    }
+
+    public boolean isEmailTaken(String email) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            String hql = "SELECT COUNT(c) FROM Client c WHERE c.email = :email";
+            Query<Long> query = session.createQuery(hql, Long.class);
+            query.setParameter("email", email);
+            return query.uniqueResult() > 0;
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            AlertUtil.errorAlert("Błąd bazy danych podczas sprawdzania e-maila.");
+            return true;
+        }
+    }
+
+    public boolean isPhoneNumberTaken(String phoneNumber) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            String hql = "SELECT COUNT(c) FROM Client c WHERE c.phone = :phoneNumber";
+            Query<Long> query = session.createQuery(hql, Long.class);
+            query.setParameter("phoneNumber", phoneNumber);
+            return query.uniqueResult() > 0;
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            AlertUtil.errorAlert("Błąd bazy danych podczas sprawdzania numeru telefonu.");
+            return true;
+        }
+    }
 }

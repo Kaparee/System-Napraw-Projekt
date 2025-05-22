@@ -9,4 +9,7 @@ public interface INewAccountService{
     List<Company> getAllCompany();
     void createNewClient(Client client, Long company_id);
     void createNewAccount(Client client, String username, String password);
+    boolean isUsernameTaken(String username);
+    boolean isEmailTaken(String email);
+    boolean isPhoneNumberTaken(String phoneNumber);
 }

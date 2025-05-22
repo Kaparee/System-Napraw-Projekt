@@ -21,14 +21,13 @@ public class TechnicianController extends BaseController{
     @FXML private Label nameLabel, surnameLabel, phoneLabel, emailLabel, descriptionLabel, createdLabel, updatedLabel, companyLabel, deviceLabel;
     @FXML private Button exportButton, logoutButton, claimButton, advancedButton;
     @FXML private TableView<Company> tableView;
-    @FXML private TableColumn<Company, String> companyNameColumn, companyAddressColumn;
+    @FXML private TableColumn<Company, String> companyNameColumn;
     @FXML private TableView<RepairOrder> tableViewInfo;
     @FXML private TableColumn<RepairOrder, String> descriptionColumn, createdColumn, updatedColumn, companyColumn, clientColumn, companyAdressNameColumn, deviceColumn;
 
     @FXML
     public void initialize(){
         companyNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
-        companyAddressColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAddress()));
 
         descriptionColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDescription()));
         createdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(DateFormatterUtil.format(cellData.getValue().getCreated_at())));

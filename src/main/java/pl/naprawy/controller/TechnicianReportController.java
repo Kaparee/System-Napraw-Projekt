@@ -21,7 +21,7 @@ import java.util.Optional;
 
 public class TechnicianReportController extends TechnicianController{
     @FXML private Label nameLabel, surnameLabel, phoneLabel, emailLabel, descriptionLabel, createdLabel, updatedLabel, companyLabel, deviceLabel;
-    @FXML private Button exportButton, logoutButton, closeButton, advancedButton, returnButton;
+    @FXML private Button exportButton, logoutButton, closeReportButton, advancedButton, returnTechnicianButton;
     @FXML private TableView<Company> tableView;
     @FXML private TableColumn<Company, String> companyNameColumn, companyAddressColumn;
     @FXML private TableView<RepairOrder> tableViewReports;
@@ -77,7 +77,7 @@ public class TechnicianReportController extends TechnicianController{
             ServiceInjector.injectAllServices(technicianController);
             technicianController.setUsername(username);
             technicianController.setTechnicianInfo(username);
-            Stage stage = (Stage) returnButton.getScene().getWindow();
+            Stage stage = (Stage) returnTechnicianButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
         } catch (Exception e) {

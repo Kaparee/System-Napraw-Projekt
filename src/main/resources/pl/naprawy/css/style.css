@@ -26,7 +26,7 @@
     -fx-border-width: 1px;
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
-    -fx-padding: 10px 12px;
+    -fx-padding: 6px 8px;
     -fx-font-size: 14px;
     -fx-prompt-text-fill: #adb5bd;
     -fx-effect: innershadow(gaussian, rgba(0,0,0,0.05), 3, 0.0, 0, 0);
@@ -65,7 +65,7 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 3, 0.1, 0, 1);
 }
 
-#newAccount {
+#newAccount, #returnButton, #closeButton{
     -fx-background-color: transparent;
     -fx-text-fill: #6c757d;
     -fx-border-color: transparent;
@@ -75,12 +75,12 @@
     -fx-effect: none;
 }
 
-#newAccount:hover {
+#newAccount:hover, #returnButton:hover, #closeButton:hover {
     -fx-text-fill: #007bff;
     -fx-underline: true;
 }
 
-#newAccount:pressed {
+#newAccount:pressed, #returnButton:pressed {
     -fx-text-fill: #0056b3;
     -fx-translate-y: 0px;
     -fx-underline: false;
@@ -212,7 +212,7 @@
     -fx-spacing: 12px;
 }
 
-#statusButton, #exportButton, #logoutButton, #reportButton {
+#statusButton, #exportButton, #logoutButton, #reportButton, #advancedButton, #returnTechnicianButton {
     -fx-background-color: transparent;
     -fx-text-fill: #007bff;
     -fx-font-weight: bold;
@@ -237,7 +237,7 @@
     -fx-border-color: #c82333;
 }
 
-#statusButton:hover, #exportButton:hover, #reportButton {
+#statusButton:hover, #exportButton:hover, #reportButton:hover, #advancedButton:hover, #returnTechnicianButton:hover {
     -fx-background-color: #e9f5ff;
     -fx-text-fill: #0056b3;
     -fx-border-color: #0056b3;

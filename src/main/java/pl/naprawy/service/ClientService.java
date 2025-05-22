@@ -6,6 +6,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import pl.naprawy.model.Client;
 import pl.naprawy.model.RepairOrder;
+import pl.naprawy.model.UserAccount;
 import pl.naprawy.util.AlertUtil;
 import pl.naprawy.util.HibernateUtil;
 
@@ -41,6 +42,15 @@ public class ClientService implements IClientService{
             Transaction transaction = session.beginTransaction();
             Client client = session.get(Client.class, id);
             if (client != null){
+                String hql = "FROM UserAccount ua WHERE ua.client = :client";
+                Query<UserAccount> query = session.createQuery(hql, UserAccount.class);
+                query.setParameter("client", client);
+                UserAccount userAccountToDelete = query.uniqueResult();
+
+                if (userAccountToDelete != null) {
+                    session.delete(userAccountToDelete);
+                }
+
                 session.delete(client);
             }
             transaction.commit();

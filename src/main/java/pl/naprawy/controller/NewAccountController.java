@@ -22,7 +22,7 @@ public class NewAccountController extends BaseController{
     @FXML private PasswordField passwordField;
     @FXML private TableView<Company> tableView;
     @FXML private TableColumn<Company, String> nameColumn, addressColumn;
-    @FXML private Button returnButton, newAccount;
+    @FXML private Button returnButton, createAccountButton;
 
     @FXML
     public void initialize(){
@@ -39,17 +39,49 @@ public class NewAccountController extends BaseController{
 
     @FXML
     private void createNewAccount(){
+        String fullName = nameField.getText();
+        System.out.println(isValidName(fullName));
+        String username = usernameField.getText();
+        String email = emailField.getText();
+        String phoneNumber = phoneField.getText();
+        String password = passwordField.getText();
+        if (fullName.isEmpty() || username.isEmpty() || email.isEmpty() || phoneNumber.isEmpty() || password.isEmpty()) {
+            AlertUtil.errorAlert("Błąd walidacji\nWszystkie pola są wymagane.");
+            return;
+        }
+
+        if (newAccountService.isUsernameTaken(username)) {
+            AlertUtil.errorAlert("Wystąpił błąd podczas rejestracji\nNazwa użytkownika '" + username + "' jest już zajęta. Proszę wybrać inną.");
+            return;
+        }
+
+        if (newAccountService.isEmailTaken(email)) {
+            AlertUtil.errorAlert("Wystąpił błąd podczas rejestracji\nAdres e-mail '" + email + "' jest już używany. Proszę podać inny.");
+            return;
+        }
+
+        if (newAccountService.isPhoneNumberTaken(phoneNumber)) {
+            AlertUtil.errorAlert("Wystąpił błąd podczas rejestracji\nNumer telefonu '" + phoneNumber + "' jest już używany. Proszę podać inny.");
+            return;
+        }
+
+        Company selectedCompany = tableView.getSelectionModel().getSelectedItem();
+        if (selectedCompany == null) {
+            AlertUtil.errorAlert("Błąd walidacji\nProszę wybrać firmę z listy.");
+            return;
+        }
+
         if (valiAll() && getSelectedCompany()!=null){
             try {
                 Client client = new Client(nameField.getText(), phoneField.getText(), emailField.getText());
                 newAccountService.createNewClient(client, getSelectedCompany());
                 newAccountService.createNewAccount(client, usernameField.getText(), passwordField.getText());
+                AlertUtil.informationAlert("Konto dla "+nameField.getText()+" zostało poprawnie utworzone");
                 nameField.setText(null);
                 usernameField.setText(null);
                 emailField.setText(null);
                 phoneField.setText(null);
                 passwordField.setText(null);
-                AlertUtil.informationAlert("Konto dla "+nameField.getText()+" zostało poprawnie utworzone");
             } catch (Exception e) {
                 AlertUtil.errorAlert("Wystąpił błąd podczas tworzenia konta.");
                 e.printStackTrace();
@@ -100,7 +132,7 @@ public class NewAccountController extends BaseController{
     }
 
     private boolean isValidUsername(String username){
-        String regex = "^[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ]+\\.[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ]+$";
+        String regex = "^[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ]+\\.[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ]+\\d*$";
         if (username.length() >= 3 && username.matches(regex)){
             return true;
         } else {
@@ -109,7 +141,7 @@ public class NewAccountController extends BaseController{
     }
 
     private boolean isValidEmail(String email){
-        String regex = "^[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ]+\\.[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ]+@napraw\\.io\\.pl$";
+        String regex = "^[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ]+\\.[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ]+\\d*+@napraw\\.io\\.pl$";
         if (email != null && email.matches(regex)){
             return true;
         } else {
@@ -145,6 +177,7 @@ public class NewAccountController extends BaseController{
             stage.show();
         } catch (Exception e) {
             AlertUtil.errorAlert("Wystąpił błąd podczas wylogowywania.\nSpróbuj ponownie później.");
+            e.printStackTrace();
         }
     }
 }
