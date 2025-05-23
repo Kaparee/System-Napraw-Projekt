@@ -57,6 +57,11 @@ public class NewDeviceController extends BaseController{
             AlertUtil.errorAlert("Proszę poprawnie wprowadzić wszystkie dane");
             return;
         }
+
+        if (deviceService.isSerialNumberTaken(serialNumberField.getText())) {
+            AlertUtil.errorAlert("Wystąpił błąd podczas tworzenia urządzenia\nNumer seryjny '" + serialNumberField.getText() + "' jest już używany. Proszę podać inny.");
+            return;
+        }
         try {
             Device device = new Device();
             device.setType(getSelectedComboBox());
@@ -64,8 +69,13 @@ public class NewDeviceController extends BaseController{
             device.setModel(modelField.getText());
             device.setSerial_number(serialNumberField.getText());
             device.setClient(getSelectedClient());
-            deviceService.createNewDevice(device);
             AlertUtil.informationAlert("Prawidłowo dodano nowe urządzenie");
+            deviceService.createNewDevice(device);
+            companyField.setText(null);
+            modelField.setText(null);
+            serialNumberField.setText(null);
+            comboBox.getSelectionModel().clearSelection();
+            tableView.getSelectionModel().clearSelection();
         } catch (Exception e){
             AlertUtil.errorAlert("Dodawanie urządzenia nie powiodło się.");
         }

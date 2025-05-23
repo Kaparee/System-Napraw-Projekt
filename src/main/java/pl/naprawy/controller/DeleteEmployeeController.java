@@ -50,6 +50,8 @@ public class DeleteEmployeeController extends BaseController{
                         clientService.deleteEmployee(selectedEmployee);
                         getClients(getTechnician().getId());
                         AlertUtil.informationAlert("Użytkownik został poprawnie usunięty.");
+                        tableView.getSelectionModel().clearSelection();
+                        passwordField.setText(null);
                     } else {
                         AlertUtil.errorAlert("Nie wybrano użytkownika.");
                     }

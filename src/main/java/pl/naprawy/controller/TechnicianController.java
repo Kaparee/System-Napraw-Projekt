@@ -107,7 +107,7 @@ public class TechnicianController extends BaseController{
     public void onExportClicked(){
         try {
             technicianExportService.exportFile(technicianService.getTechnicianByLogin(username), technicianCompanyService.getTechnicianCompanies(getTechnician().getId()), repairOrderService.getTechnicianReports(getTechnician().getId()));
-            AlertUtil.informationAlert("Pomyślnie pobrano dane\nKliknij OK aby wyłączyć okno");
+            AlertUtil.informationAlert("Pomyślnie pobrano dane.\nKliknij OK aby wyłączyć okno");
         } catch (Exception e) {
             AlertUtil.errorAlert("Wystąpił błąd podczas pobierania danych.\nSpróbuj ponownie później.");
             e.printStackTrace();
@@ -116,14 +116,25 @@ public class TechnicianController extends BaseController{
 
     @FXML
     private void onClaimButtonClicked(){
-        Timestamp now = new Timestamp(System.currentTimeMillis());
-        technicianService.claimRaport(getTechnician().getId(), getSelectedReport(), now);
-        showFreeReport();
+        try {
+            Timestamp now = new Timestamp(System.currentTimeMillis());
+            technicianService.claimRaport(getTechnician().getId(), getSelectedReport(), now);
+            showFreeReport();
+            AlertUtil.informationAlert("Pomyślnie przjęto zgłoszenie.\nKliknij OK aby wyłączyć okno");
+            descriptionColumn.setText(null);
+            createdColumn.setText(null);
+            updatedColumn.setText(null);
+            clientColumn.setText(null);
+            companyAdressNameColumn.setText(null);
+            deviceColumn.setText(null);
+        } catch (Exception e){
+            AlertUtil.errorAlert("Wystąpił błąd podczas przypisywania zgłoszenia.\nSpróbuj ponownie później");
+        }
     }
 
     @FXML
     private void onLogoutClicked(){
-        AlertUtil.showTimedAlert(
+         AlertUtil.showTimedAlert(
                 Alert.AlertType.INFORMATION,
                 "Informacja",
                 null,

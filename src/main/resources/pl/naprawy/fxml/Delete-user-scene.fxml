@@ -17,7 +17,7 @@
     <children>
         <VBox alignment="TOP_CENTER" prefHeight="500.0" prefWidth="400.0" spacing="8.0" styleClass="card-pane">
             <children>
-                <Label text="Pracownik">
+                <Label text="Pracownik" wrapText="true">
                     <font>
                         <Font size="14.0" />
                     </font>
@@ -29,13 +29,14 @@
                     </columns>
                 </TableView>
 
-                <Label text="Wprowadź swoje hasło">
+                <Label text="Wprowadź swoje hasło" wrapText="true">
                     <font>
                         <Font size="14.0" />
                     </font>
                 </Label>
-                <PasswordField fx:id="passwordField" maxWidth="330.0" prefHeight="35.0" prefWidth="330.0" /> <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteEmployee" text="Usuń wybranego pracownika" />
-                <Button fx:id="closeButton" mnemonicParsing="false" onAction="#closeButtonClicked" text="Wyłącz ekran usuwania pracowników" />
+                <PasswordField fx:id="passwordField" maxWidth="330.0" prefHeight="35.0" prefWidth="330.0" />
+                <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteEmployee" text="Usuń wybranego pracownika" wrapText="true" />
+                <Button fx:id="closeButton" mnemonicParsing="false" onAction="#closeButtonClicked" text="Wyłącz ekran usuwania pracowników" wrapText="true" />
             </children>
             <padding>
                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

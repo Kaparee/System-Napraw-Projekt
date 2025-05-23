@@ -27,7 +27,7 @@ public class ClientService implements IClientService{
 
     public List<Client> getAllClientInCompanies(Long id){
         try(Session session = HibernateUtil.getSessionFactory().openSession()) {
-            String hql = "SELECT DISTINCT c FROM Client c JOIN RepairOrder ro ON ro.client.id = c.id WHERE ro.company.id IN (SELECT tc.company.id FROM TechnicianCompany tc WHERE tc.technician.id = :id) ORDER BY c.company.id";
+            String hql = "SELECT DISTINCT c FROM Client c WHERE c.company.id IN (SELECT tc.company.id FROM TechnicianCompany tc WHERE tc.technician.id = :id) ORDER BY c.company.id";
             Query<Client> query = session.createQuery(hql, Client.class);
             query.setParameter("id", id);
             return query.list();

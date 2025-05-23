@@ -26,11 +26,11 @@
                               <Image url="@../images/client.png" />
                            </image>
                         </ImageView>
-                     <Label fx:id="nameLabel" styleClass="name-surname" stylesheets="@../css/style.css" text="Imię" />
-                     <Label fx:id="surnameLabel" contentDisplay="CENTER" styleClass="name-surname" text="Nazwisko" />
-                        <Label fx:id="phoneLabel" maxWidth="250.0" text="Telefon" />
-                        <Label fx:id="emailLabel" maxWidth="250.0" text="Email" />
-                        <Label fx:id="companyLabel" maxWidth="250.0" text="Firma" />
+                        <Label fx:id="nameLabel" styleClass="name-surname" stylesheets="@../css/style.css" text="Imię" wrapText="true" />
+                        <Label fx:id="surnameLabel" contentDisplay="CENTER" styleClass="name-surname" text="Nazwisko" wrapText="true" />
+                        <Label fx:id="phoneLabel" maxWidth="250.0" text="Telefon" wrapText="true" />
+                        <Label fx:id="emailLabel" maxWidth="250.0" text="Email" wrapText="true" />
+                        <Label fx:id="companyLabel" maxWidth="250.0" text="Firma" wrapText="true" />
                         <Label fx:id="companyAddressLabel" maxWidth="250.0" text="Adres firmy" wrapText="true" />
                      </children>
                      <padding>
@@ -39,10 +39,10 @@
                   </VBox>
                   <VBox fx:id="actionPanel" alignment="TOP_CENTER" prefHeight="160.0" prefWidth="280.0" spacing="15.0" styleClass="section-vbox">
                      <children>
-                        <Button fx:id="statusButton" maxWidth="Infinity" mnemonicParsing="false" onAction="#onStatusButtonClicked" text="Sprawdź statusy swoich zgłoszeń" />
-                        <Button fx:id="exportButton" maxWidth="Infinity" mnemonicParsing="false" onAction="#onExportClicked" text="Pobierz swoje dane do pliku" />
+                        <Button fx:id="statusButton" maxWidth="280.0" mnemonicParsing="false" onAction="#onStatusButtonClicked" text="Sprawdź statusy swoich zgłoszeń" wrapText="true" />
+                        <Button fx:id="exportButton" maxWidth="280.0" mnemonicParsing="false" onAction="#onExportClicked" text="Pobierz swoje dane do pliku" wrapText="true" />
                         <Separator prefWidth="200.0" styleClass="separator" />
-                        <Button fx:id="logoutButton" maxWidth="Infinity" mnemonicParsing="false" onAction="#onLogoutClicked" text="Wyloguj się" />
+                        <Button fx:id="logoutButton" maxWidth="280.0" mnemonicParsing="false" onAction="#onLogoutClicked" text="Wyloguj się" wrapText="true" />
                      </children>
                      <padding>
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
@@ -53,9 +53,7 @@
 
             <VBox fx:id="mainContentPanel" alignment="TOP_CENTER" prefHeight="660.0" prefWidth="760.0" spacing="15.0" styleClass="section-vbox">
                <children>
-                  <Label styleClass="title-label" text="Wyślij nowe zgłoszenie" />
-                  <Label text="Podaj opis swojego problemu" />
-                  <TextArea fx:id="descriptionArea" prefHeight="152.0" prefWidth="700.0" wrapText="true" />
+                  <Label styleClass="title-label" text="Wyślij nowe zgłoszenie" wrapText="true" />
                   <Label text="Wybierz urządzenie z listy" wrapText="true" />
                   <TableView fx:id="tableView" prefHeight="250.0" prefWidth="501.0">
                      <columns>
@@ -67,10 +65,12 @@
                         <Insets left="110.0" right="110.0" />
                      </VBox.margin>
                   </TableView>
+                  <Label text="Podaj opis swojego problemu" wrapText="true" />
+                  <TextArea fx:id="descriptionArea" prefHeight="152.0" prefWidth="700.0" wrapText="true" />
                   <HBox alignment="CENTER" spacing="15.0">
                      <children>
-                        <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearForm" text="Wyczyść" />
-                        <Button fx:id="sendButton" mnemonicParsing="false" onAction="#sendForm" text="Wyślij" />
+                        <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearForm" text="Wyczyść" wrapText="true" />
+                        <Button fx:id="sendButton" mnemonicParsing="false" onAction="#sendForm" text="Wyślij" wrapText="true" />
                      </children>
                      <VBox.margin>
                         <Insets top="10.0" />

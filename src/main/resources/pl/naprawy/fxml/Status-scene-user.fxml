@@ -26,11 +26,11 @@
                                         <Image url="@../images/client.png" />
                                     </image>
                                 </ImageView>
-                                <Label fx:id="nameLabel" text="Imię" styleClass="name-surname" maxWidth="250.0" />
-                                <Label fx:id="surnameLabel" text="Nazwisko" styleClass="name-surname" maxWidth="250.0" />
-                                <Label fx:id="phoneLabel" text="Telefon" maxWidth="250.0" />
-                                <Label fx:id="emailLabel" text="Email" maxWidth="250.0" />
-                                <Label fx:id="companyLabel" text="Firma" maxWidth="250.0" />
+                                <Label fx:id="nameLabel" text="Imię" styleClass="name-surname" maxWidth="250.0" wrapText="true" />
+                                <Label fx:id="surnameLabel" text="Nazwisko" styleClass="name-surname" maxWidth="250.0" wrapText="true" />
+                                <Label fx:id="phoneLabel" text="Telefon" maxWidth="250.0" wrapText="true" />
+                                <Label fx:id="emailLabel" text="Email" maxWidth="250.0" wrapText="true" />
+                                <Label fx:id="companyLabel" text="Firma" maxWidth="250.0" wrapText="true" />
                                 <Label fx:id="companyAddressLabel" text="Adres firmy" wrapText="true" maxWidth="250.0" />
                             </children>
                             <padding>
@@ -39,10 +39,10 @@
                         </VBox>
                         <VBox fx:id="actionPanel" alignment="TOP_CENTER" prefHeight="160.0" prefWidth="280.0" spacing="15.0" styleClass="section-vbox">
                             <children>
-                                <Button fx:id="reportButton" mnemonicParsing="false" onAction="#onReportButtonClicked" text="Prześlij nowe zgłoszenie" maxWidth="Infinity" />
-                                <Button fx:id="exportButton" mnemonicParsing="false" onAction="#onExportClicked" text="Pobierz swoje dane do pliku" maxWidth="Infinity" />
+                                <Button fx:id="reportButton" mnemonicParsing="false" onAction="#onReportButtonClicked" text="Prześlij nowe zgłoszenie" maxWidth="290.0" wrapText="true" />
+                                <Button fx:id="exportButton" mnemonicParsing="false" onAction="#onExportClicked" text="Pobierz swoje dane do pliku" maxWidth="290.0" wrapText="true" />
                                 <Separator prefWidth="200.0" styleClass="separator" />
-                                <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#onLogoutClicked" text="Wyloguj się" maxWidth="Infinity" />
+                                <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#onLogoutClicked" text="Wyloguj się" maxWidth="290.0" wrapText="true" />
                             </children>
                             <padding>
                                 <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
@@ -64,13 +64,13 @@
                             <VBox.margin>
                                 <Insets left="0.0" right="0.0" /> </VBox.margin>
                         </TableView>
-                        <Label fx:id="descriptionLabel" text="Opis" wrapText="true" maxWidth="400.0" />
-                        <Label fx:id="createdLabel" text="Utworzono" wrapText="true" maxWidth="400.0" />
-                        <Label fx:id="updatedLabel" text="Zaktualizowano" wrapText="true" maxWidth="400.0" />
+                        <Label fx:id="descriptionLabel" text="Opis" wrapText="true" maxWidth="400.0" textAlignment="CENTER"/>
+                        <Label fx:id="createdLabel" text="Utworzono" wrapText="true" maxWidth="400.0" textAlignment="CENTER" />
+                        <Label fx:id="updatedLabel" text="Zaktualizowano" wrapText="true" maxWidth="400.0" textAlignment="CENTER" />
                         <Label fx:id="technicianLabel" text="Technik" wrapText="true" maxWidth="400.0" textAlignment="CENTER" />
-                        <Label fx:id="deviceLabel" text="Model" wrapText="true" maxWidth="400.0" />
-                        <Label fx:id="statusLabel" text="Status" wrapText="true" maxWidth="400.0" />
-                        <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteRaport" text="Usuń zgłoszenie" />
+                        <Label fx:id="deviceLabel" text="Model" wrapText="true" maxWidth="400.0" textAlignment="CENTER" />
+                        <Label fx:id="statusLabel" text="Status" wrapText="true" maxWidth="400.0" textAlignment="CENTER" />
+                        <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteRaport" text="Usuń zgłoszenie" wrapText="true" />
                     </children>
                     <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

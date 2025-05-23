@@ -93,6 +93,7 @@ public class UserStatusController extends UserController {
         if (selected.getStatus().equals("Nowy")) {
             Optional<ButtonType> result = AlertUtil.confirmAlert("Usunięcie zgłoszenia");
             if (result.isPresent() && result.get() == ButtonType.OK) {
+                AlertUtil.informationAlert("Pomyślnie usunięto zgłoszenie");
                 repairOrderService.deleteOrder(selected.getId());
                 showInformation();
                 createdLabel.setText("");

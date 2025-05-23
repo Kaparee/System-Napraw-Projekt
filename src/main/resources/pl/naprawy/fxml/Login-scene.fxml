@@ -10,13 +10,13 @@
 <StackPane prefHeight="500.0" prefWidth="600.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.naprawy.controller.MainController">
    <children>
       <VBox alignment="CENTER" maxWidth="320.0" styleClass="card-pane"> <children>
-         <Label text="Logowanie do NAPRAW.IO" styleClass="title-label" wrapText="true" textAlignment="CENTER"/>
-         <Label text="Nazwa użytkownika" />
-         <TextField fx:id="usernameField" />
-         <Label text="Hasło" />
+         <Label styleClass="title-label" text="Logowanie do NAPRAW.IO" textAlignment="CENTER" wrapText="true" />
+         <Label text="Nazwa użytkownika" wrapText="true" />
+         <TextField fx:id="usernameField" promptText="jan.kowalski" />
+         <Label text="Hasło" wrapText="true" />
          <PasswordField fx:id="passwordField" />
-         <Button fx:id="loginButton" onAction="#onLoginClicked" text="Zaloguj" />
-         <Button fx:id="newAccount" onAction="#createNewAccount" text="Załóż nowe konto pracownika" />
+         <Button fx:id="loginButton" onAction="#onLoginClicked" text="Zaloguj" wrapText="true" />
+         <Button fx:id="newAccount" onAction="#createNewAccount" text="Załóż nowe konto pracownika" wrapText="true" />
       </children>
       </VBox>
    </children>

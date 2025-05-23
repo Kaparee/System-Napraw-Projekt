@@ -43,4 +43,17 @@ public class DeviceService implements IDeviceService{
             AlertUtil.errorAlert("Wystąpił błąd podczas dodawania urządzenia");
         }
     }
+
+    public boolean isSerialNumberTaken(String serial_number) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            String hql = "SELECT COUNT(d) FROM Device d WHERE d.serial_number = :serial_number";
+            Query<Long> query = session.createQuery(hql, Long.class);
+            query.setParameter("serial_number", serial_number);
+            return query.uniqueResult() > 0;
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            AlertUtil.errorAlert("Błąd bazy danych podczas sprawdzania numery seryjnego.");
+            return true;
+        }
+    }
 }

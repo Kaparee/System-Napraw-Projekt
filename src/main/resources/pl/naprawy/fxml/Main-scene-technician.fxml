@@ -12,13 +12,11 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane prefHeight="700.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="pl.naprawy.controller.TechnicianController"
-           stylesheets="@../css/style.css">
+<StackPane prefHeight="700.0" prefWidth="1100.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.naprawy.controller.TechnicianController">
    <children>
       <HBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="20.0">
          <children>
-            <VBox prefHeight="660.0" prefWidth="280.0" spacing="20.0" alignment="TOP_CENTER">
+            <VBox alignment="TOP_CENTER" prefHeight="660.0" prefWidth="280.0" spacing="20.0">
                <children>
                   <VBox fx:id="userInfoPanel" alignment="TOP_CENTER" prefHeight="480.0" prefWidth="280.0" spacing="10.0" styleClass="section-vbox">
                      <children>
@@ -27,13 +25,13 @@
                               <Image url="@../images/technician.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="nameLabel" text="Imię" styleClass="name-surname" maxWidth="250.0" wrapText="true"/>
-                        <Label fx:id="surnameLabel" text="Nazwisko" styleClass="name-surname" maxWidth="250.0" wrapText="true"/>
-                        <Label fx:id="phoneLabel" text="Telefon" maxWidth="250.0" wrapText="true"/>
-                        <Label fx:id="emailLabel" text="Email" maxWidth="250.0" wrapText="true"/>
+                        <Label fx:id="nameLabel" maxWidth="250.0" styleClass="name-surname" text="Imię" wrapText="true" />
+                        <Label fx:id="surnameLabel" maxWidth="250.0" styleClass="name-surname" text="Nazwisko" wrapText="true" />
+                        <Label fx:id="phoneLabel" maxWidth="250.0" text="Telefon" wrapText="true" />
+                        <Label fx:id="emailLabel" maxWidth="250.0" text="Email" wrapText="true" />
                         <TableView fx:id="tableView" prefHeight="137.0" prefWidth="200.0">
                         <columns>
-                           <TableColumn fx:id="companyNameColumn" prefWidth="200.0" text="Nazwa" />
+                           <TableColumn fx:id="companyNameColumn" prefWidth="223.0" text="Nazwa" />
                         </columns>
                      </TableView>
                      </children>
@@ -43,10 +41,10 @@
                   </VBox>
 
                   <VBox fx:id="actionPanel" alignment="TOP_CENTER" prefHeight="160.0" prefWidth="280.0" spacing="15.0" styleClass="section-vbox"> <children>
-                     <Button fx:id="advancedButton" mnemonicParsing="false" onAction="#onAdvancedButtonClicked" text="Przejdź do zaawansowanych ustawień" maxWidth="Infinity" />
-                     <Button fx:id="exportButton" mnemonicParsing="false" onAction="#onExportClicked" text="Pobierz swoje dane do pliku" maxWidth="Infinity" />
+                     <Button fx:id="advancedButton" maxWidth="280.0" mnemonicParsing="false" onAction="#onAdvancedButtonClicked" text="Przejdź do zaawansowanych ustawień" wrapText="true" />
+                     <Button fx:id="exportButton" maxWidth="280.0" mnemonicParsing="false" onAction="#onExportClicked" text="Pobierz swoje dane do pliku" wrapText="true" />
                      <Separator prefWidth="200.0" styleClass="separator" />
-                     <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#onLogoutClicked" text="Wyloguj się" maxWidth="Infinity" />
+                     <Button fx:id="logoutButton" maxWidth="280.0" mnemonicParsing="false" onAction="#onLogoutClicked" text="Wyloguj się" wrapText="true" />
                   </children>
                      <padding>
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
@@ -59,32 +57,32 @@
                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
             </padding>
                <children>
-                  <Label text="Nowe zgłoszenia" styleClass="title-label" />
+                  <Label styleClass="title-label" text="Nowe zgłoszenia" wrapText="true" />
                   <TableView fx:id="tableViewInfo" prefHeight="250.0" prefWidth="660.0"> <columns>
-                     <TableColumn fx:id="descriptionColumn" prefWidth="175.0" text="Opis" />
-                     <TableColumn fx:id="createdColumn" prefWidth="145.0" text="Utworzono" />
-                     <TableColumn fx:id="updatedColumn" prefWidth="145.0" text="Zaktualizowano" />
-                     <TableColumn fx:id="companyColumn" prefWidth="120.0" text="Miejsce">
+                     <TableColumn fx:id="descriptionColumn" prefWidth="123.0" text="Opis" />
+                     <TableColumn fx:id="createdColumn" prefWidth="141.0" text="Utworzono" />
+                     <TableColumn fx:id="updatedColumn" prefWidth="118.0" text="Zaktualizowano" />
+                     <TableColumn fx:id="companyColumn" prefWidth="283.0" text="Miejsce">
                         <columns>
                            <TableColumn fx:id="clientColumn" prefWidth="100.0" text="Pracownik" />
                            <TableColumn fx:id="companyAdressNameColumn" prefWidth="100.0" text="Firma" />
                         </columns>
                      </TableColumn>
-                     <TableColumn fx:id="deviceColumn" prefWidth="145.0" text="Urządzenie" />
+                     <TableColumn fx:id="deviceColumn" prefWidth="134.0" text="Urządzenie" />
                   </columns>
                      <VBox.margin> <Insets left="0.0" right="0.0" />
                      </VBox.margin>
                   </TableView>
                   <VBox alignment="CENTER" spacing="5.0">
                      <children>
-                        <Label fx:id="descriptionLabel" text="Opis zgłoszenia" wrapText="true" maxWidth="400.0" />
-                        <Label fx:id="createdLabel" text="Utworzono:" wrapText="true" maxWidth="400.0" />
-                        <Label fx:id="updatedLabel" text="Zaktualizowano:" wrapText="true" maxWidth="400.0" />
-                        <Label fx:id="companyLabel" text="Firma i klient:" wrapText="true" maxWidth="400.0" textAlignment="CENTER"/>
-                        <Label fx:id="deviceLabel" text="Urządzenie:" wrapText="true" maxWidth="400.0" />
+                        <Label fx:id="descriptionLabel" maxWidth="400.0" text="Opis zgłoszenia" wrapText="true" />
+                        <Label fx:id="createdLabel" maxWidth="400.0" text="Utworzono:" wrapText="true" />
+                        <Label fx:id="updatedLabel" maxWidth="400.0" text="Zaktualizowano:" wrapText="true" />
+                        <Label fx:id="companyLabel" maxWidth="400.0" text="Firma i klient:" textAlignment="CENTER" wrapText="true" />
+                        <Label fx:id="deviceLabel" maxWidth="400.0" text="Urządzenie:" wrapText="true" />
                      </children>
                   </VBox>
-                  <Button fx:id="claimButton" mnemonicParsing="false" onAction="#onClaimButtonClicked" text="Przyjmij zgłoszenie" />
+                  <Button fx:id="claimButton" mnemonicParsing="false" onAction="#onClaimButtonClicked" text="Przyjmij zgłoszenie" wrapText="true" />
                </children>
             </VBox>
          </children>

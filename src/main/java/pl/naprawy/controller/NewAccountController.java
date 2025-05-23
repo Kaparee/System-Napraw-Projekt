@@ -2,7 +2,6 @@ package pl.naprawy.controller;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,7 +16,7 @@ import pl.naprawy.util.AlertUtil;
 import java.util.List;
 
 public class NewAccountController extends BaseController{
-    @FXML private Label nameLabel, usernameLabel, emailLabel, phoneLabel, passwordLabel;
+    @FXML private Label nameLabel, usernameLabel, emailLabel, phoneLabel, passwordLabel, passwordInfoLabel;
     @FXML private TextField nameField, usernameField, emailField, phoneField;
     @FXML private PasswordField passwordField;
     @FXML private TableView<Company> tableView;
@@ -77,11 +76,12 @@ public class NewAccountController extends BaseController{
                 newAccountService.createNewClient(client, getSelectedCompany());
                 newAccountService.createNewAccount(client, usernameField.getText(), passwordField.getText());
                 AlertUtil.informationAlert("Konto dla "+nameField.getText()+" zostało poprawnie utworzone");
+                tableView.getSelectionModel().clearSelection();
                 nameField.setText(null);
                 usernameField.setText(null);
                 emailField.setText(null);
                 phoneField.setText(null);
-                passwordField.setText(null);
+                returnToLoginScene();
             } catch (Exception e) {
                 AlertUtil.errorAlert("Wystąpił błąd podczas tworzenia konta.");
                 e.printStackTrace();
@@ -168,7 +168,7 @@ public class NewAccountController extends BaseController{
     }
 
     @FXML
-    private void returnToLoginScene(ActionEvent event){
+    private void returnToLoginScene(){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/pl/naprawy/fxml/Login-scene.fxml"));
         try {
             Parent root = fxmlLoader.load();
