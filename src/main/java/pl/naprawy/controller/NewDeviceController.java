@@ -5,9 +5,8 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import pl.naprawy.model.Client;
+import pl.naprawy.model.Employee;
 import pl.naprawy.model.Device;
-import pl.naprawy.model.RepairOrder;
 import pl.naprawy.util.AlertUtil;
 
 import java.util.List;
@@ -16,8 +15,8 @@ public class NewDeviceController extends BaseController{
     @FXML Label nameLabel, brandLabel, modelLabel, serialNumberLabel;
     @FXML TextField companyField, modelField, serialNumberField;
     @FXML ComboBox<String> comboBox;
-    @FXML TableView<Client> tableView;
-    @FXML TableColumn<Client, String> nameColumn, companyColumn;
+    @FXML TableView<Employee> tableView;
+    @FXML TableColumn<Employee, String> nameColumn, companyColumn;
     @FXML Button newDevice, closeButton;
 
     @FXML
@@ -37,13 +36,13 @@ public class NewDeviceController extends BaseController{
     }
 
     @FXML
-    public void getClients(Long id){
-        List<Client> clients = clientService.getAllClientInCompanies(id);
-        tableView.setItems(FXCollections.observableArrayList(clients));
+    public void getEmployees(Long id){
+        List<Employee> employees = employeeService.getAllEmployeesInCompanies(id);
+        tableView.setItems(FXCollections.observableArrayList(employees));
     }
 
-    public Client getSelectedClient(){
-        Client selected = tableView.getSelectionModel().getSelectedItem();
+    public Employee getSelectedEmployee(){
+        Employee selected = tableView.getSelectionModel().getSelectedItem();
         if (selected != null){
             return selected;
         }else {
@@ -68,7 +67,7 @@ public class NewDeviceController extends BaseController{
             device.setBrand(companyField.getText());
             device.setModel(modelField.getText());
             device.setSerial_number(serialNumberField.getText());
-            device.setClient(getSelectedClient());
+            device.setEmployee(getSelectedEmployee());
             AlertUtil.informationAlert("Prawidłowo dodano nowe urządzenie");
             deviceService.createNewDevice(device);
             companyField.setText(null);

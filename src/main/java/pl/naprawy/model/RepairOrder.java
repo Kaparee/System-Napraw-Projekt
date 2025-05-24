@@ -14,8 +14,8 @@ public class RepairOrder {
     private Timestamp updated_at;
 
     @ManyToOne
-    @JoinColumn(name = "client_id")
-    private Client client;
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
 
     @ManyToOne
     @JoinColumn(name = "technician_id")
@@ -62,12 +62,12 @@ public class RepairOrder {
         this.updated_at = updated_at;
     }
 
-    public Client getClient() {
-        return client;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     public Technician getTechnician() {
@@ -101,6 +101,7 @@ public class RepairOrder {
     public void setStatus(String status) {
         this.status = status;
     }
+
 
     public RepairOrder() {
     }

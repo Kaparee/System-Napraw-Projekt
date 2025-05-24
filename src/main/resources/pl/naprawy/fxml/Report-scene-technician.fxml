@@ -59,16 +59,16 @@
                 <children>
                     <Label styleClass="title-label" text="Aktualne zgłoszenia" />
                     <TableView fx:id="tableViewReports" prefHeight="250.0" prefWidth="660.0"> <columns>
-                        <TableColumn fx:id="descriptionColumn" prefWidth="175.0" text="Opis" />
-                        <TableColumn fx:id="createdColumn" prefWidth="145.0" text="Utworzono" />
-                        <TableColumn fx:id="updatedColumn" prefWidth="145.0" text="Zaktualizowano" />
-                        <TableColumn fx:id="companyColumn" prefWidth="120.0" text="Miejsce">
+                        <TableColumn fx:id="descriptionColumn" prefWidth="123.0" text="Opis" />
+                        <TableColumn fx:id="createdColumn" prefWidth="141.0" text="Utworzono" />
+                        <TableColumn fx:id="updatedColumn" prefWidth="118.0" text="Zaktualizowano" />
+                        <TableColumn fx:id="companyColumn" prefWidth="283.0" text="Miejsce">
                             <columns>
                                 <TableColumn fx:id="clientColumn" prefWidth="100.0" text="Pracownik" />
                                 <TableColumn fx:id="companyAdressNameColumn" prefWidth="100.0" text="Firma" />
                             </columns>
                         </TableColumn>
-                        <TableColumn fx:id="deviceColumn" prefWidth="145.0" text="Urządzenie" />
+                        <TableColumn fx:id="deviceColumn" prefWidth="134.0" text="Urządzenie" />
                     </columns>
                         <VBox.margin> <Insets left="0.0" right="0.0" />
                         </VBox.margin>

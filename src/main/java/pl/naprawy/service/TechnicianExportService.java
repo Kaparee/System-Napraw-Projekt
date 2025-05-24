@@ -1,6 +1,5 @@
 package pl.naprawy.service;
 
-import pl.naprawy.model.Client;
 import pl.naprawy.model.Company;
 import pl.naprawy.model.RepairOrder;
 import pl.naprawy.model.Technician;
@@ -26,7 +25,7 @@ public class TechnicianExportService implements ITechnicianExportService{
                 writer.println("description, created_at, updated_at, client_name, company_name, device, status");
                 writer.printf("%s, %s, %s, %s, %s, %s, %s%n", ro.getDescription().replace(",", ";"),
                         DateFormatterUtil.format(ro.getCreated_at()), DateFormatterUtil.format(ro.getUpdated_at()),
-                        ro.getClient().getName(), ro.getCompany().getName(), ro.getDevice().getBrand()+" "+ro.getDevice().getModel(), ro.getStatus());
+                        ro.getEmployee().getName(), ro.getCompany().getName(), ro.getDevice().getBrand()+" "+ro.getDevice().getModel(), ro.getStatus());
                 writer.println("==========================================================================================================================");
             }
         } catch (Exception e) {

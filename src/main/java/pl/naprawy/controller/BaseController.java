@@ -1,19 +1,19 @@
 package pl.naprawy.controller;
 
-import pl.naprawy.model.Client;
+import pl.naprawy.model.Employee;
 import pl.naprawy.model.Company;
 import pl.naprawy.model.Technician;
 import pl.naprawy.service.*;
 
 public abstract class BaseController {
     protected ILoginService loginService;
-    protected IClientService clientService;
+    protected IEmployeeService employeeService;
     protected ITechnicianService technicianService;
     protected ITechnicianCompanyService technicianCompanyService;
     protected IDeviceService deviceService;
     protected INewAccountService newAccountService;
     protected IRepairOrderService repairOrderService;
-    protected IUserExportService userExportService;
+    protected IEmployeeExportService employeeExportService;
     protected ITechnicianExportService technicianExportService;
     protected String username;
 
@@ -21,8 +21,8 @@ public abstract class BaseController {
         this.loginService = loginService;
     }
 
-    public void setClientService(IClientService clientService) {
-        this.clientService = clientService;
+    public void setEmployeeService(IEmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
 
     public void setTechnicianService(ITechnicianService technicianService) {
@@ -45,8 +45,8 @@ public abstract class BaseController {
         this.repairOrderService = repairOrderService;
     }
 
-    public void setUserExportService(IUserExportService userExportService) {
-        this.userExportService = userExportService;
+    public void setEmployeeExportService(IEmployeeExportService employeeExportService) {
+        this.employeeExportService = employeeExportService;
     }
 
     public void setTechnicianExportService(ITechnicianExportService technicianExportService) {
@@ -57,16 +57,16 @@ public abstract class BaseController {
         this.username = username;
     }
 
-    protected Client getClient() {
-        return clientService.getClientByLogin(username);
+    protected Employee getEmployee() {
+        return employeeService.getEmployeeByLogin(username);
     }
 
     protected Technician getTechnician(){
         return technicianService.getTechnicianByLogin(username);
     }
 
-    protected Company getCompany(Client client) {
-        return client.getCompany();
+    protected Company getCompany(Employee employee) {
+        return employee.getCompany();
     }
 
 }

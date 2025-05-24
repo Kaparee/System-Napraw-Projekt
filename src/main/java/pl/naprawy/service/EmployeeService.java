@@ -4,19 +4,18 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import pl.naprawy.model.Client;
-import pl.naprawy.model.RepairOrder;
+import pl.naprawy.model.Employee;
 import pl.naprawy.model.UserAccount;
 import pl.naprawy.util.AlertUtil;
 import pl.naprawy.util.HibernateUtil;
 
 import java.util.List;
 
-public class ClientService implements IClientService{
-    public Client getClientByLogin(String login) {
+public class EmployeeService implements IEmployeeService {
+    public Employee getEmployeeByLogin(String login) {
         try(Session session = HibernateUtil.getSessionFactory().openSession()) {
-            String hql = "SELECT c FROM Client c JOIN UserAccount u ON c.id = u.client.id WHERE u.login = :login";
-            Query<Client> query = session.createQuery(hql, Client.class);
+            String hql = "SELECT e FROM Employee e JOIN UserAccount u ON e.id = u.employee.id WHERE u.login = :login";
+            Query<Employee> query = session.createQuery(hql, Employee.class);
             query.setParameter("login", login);
             return query.uniqueResult();
         } catch (HibernateException e) {
@@ -25,10 +24,10 @@ public class ClientService implements IClientService{
         }
     }
 
-    public List<Client> getAllClientInCompanies(Long id){
+    public List<Employee> getAllEmployeesInCompanies(Long id){
         try(Session session = HibernateUtil.getSessionFactory().openSession()) {
-            String hql = "SELECT DISTINCT c FROM Client c WHERE c.company.id IN (SELECT tc.company.id FROM TechnicianCompany tc WHERE tc.technician.id = :id) ORDER BY c.company.id";
-            Query<Client> query = session.createQuery(hql, Client.class);
+            String hql = "SELECT DISTINCT e FROM Employee e WHERE e.company.id IN (SELECT tc.company.id FROM TechnicianCompany tc WHERE tc.technician.id = :id) ORDER BY e.company.id";
+            Query<Employee> query = session.createQuery(hql, Employee.class);
             query.setParameter("id", id);
             return query.list();
         }catch (HibernateException e) {
@@ -40,18 +39,18 @@ public class ClientService implements IClientService{
     public void deleteEmployee(Long id){
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
             Transaction transaction = session.beginTransaction();
-            Client client = session.get(Client.class, id);
-            if (client != null){
-                String hql = "FROM UserAccount ua WHERE ua.client = :client";
+            Employee employee = session.get(Employee.class, id);
+            if (employee != null){
+                String hql = "FROM UserAccount ua WHERE ua.employee = :employee";
                 Query<UserAccount> query = session.createQuery(hql, UserAccount.class);
-                query.setParameter("client", client);
+                query.setParameter("employee", employee);
                 UserAccount userAccountToDelete = query.uniqueResult();
 
                 if (userAccountToDelete != null) {
                     session.delete(userAccountToDelete);
                 }
 
-                session.delete(client);
+                session.delete(employee);
             }
             transaction.commit();
             session.close();

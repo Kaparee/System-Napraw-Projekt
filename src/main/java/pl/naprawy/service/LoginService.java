@@ -24,7 +24,7 @@ public class LoginService implements ILoginService {
             BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), hashedPassword);
 
             if (result.verified) {
-                if (user.getClient() != null) {
+                if (user.getEmployee() != null) {
                     return 1;
                 } else if (user.getTechnician() != null) {
                     return 2;

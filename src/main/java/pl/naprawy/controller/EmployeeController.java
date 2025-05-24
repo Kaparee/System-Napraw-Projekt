@@ -15,7 +15,7 @@ import pl.naprawy.util.ServiceInjector;
 import java.sql.Timestamp;
 import java.util.List;
 
-public class UserController extends BaseController {
+public class EmployeeController extends BaseController {
 
     @FXML private Label nameLabel, companyLabel, surnameLabel, phoneLabel, emailLabel, companyAddressLabel;
     @FXML private TextArea descriptionArea;
@@ -30,34 +30,34 @@ public class UserController extends BaseController {
         modelColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getModel()));
     }
 
-    public void setClientInfo(String username) {
-        Client client = getClient();
-        if (client == null) {
+    public void setEmployeeInfo(String username) {
+        Employee employee = getEmployee();
+        if (employee == null) {
             AlertUtil.errorAlert("Nieprawidłowy użytkownik.");
             return;
         }
-        Company company = getCompany(client);
-        if (client != null && company != null) {
-            String[] nameParts = client.getName().split(" ");
+        Company company = getCompany(employee);
+        if (employee != null && company != null) {
+            String[] nameParts = employee.getName().split(" ");
             nameLabel.setText(nameParts[0]);
             surnameLabel.setText(nameParts.length > 1 ? nameParts[1] : "");
             companyLabel.setText(company.getName());
-            phoneLabel.setText(client.getPhone());
-            emailLabel.setText(client.getEmail());
+            phoneLabel.setText(employee.getPhone());
+            emailLabel.setText(employee.getEmail());
             companyAddressLabel.setText(company.getAddress());
         }
-        List<Device> devicesList = deviceService.getUserDevice(getClient().getId());
+        List<Device> devicesList = deviceService.getEmployeeDevice(getEmployee().getId());
         tableView.setItems(FXCollections.observableArrayList(devicesList));
     }
 
     @FXML
     private void sendForm(ActionEvent event) {
-        Client client = getClient();
-        if (client == null) {
-            AlertUtil.errorAlert("Nieprawidłowy użytkownik.");
+        Employee employee = getEmployee();
+        if (employee == null) {
+            AlertUtil.errorAlert("Nieprawidłowy pracownik.");
             return;
         }
-        Company company = getCompany(client);
+        Company company = getCompany(employee);
         if (company == null) {
             AlertUtil.errorAlert("Nie jesteś przypisany do żadnej firmy.\nSkontaktuj się bezpośrednio z twoim przełożonym.");
             return;
@@ -73,7 +73,7 @@ public class UserController extends BaseController {
                 return;
             }
             RepairOrder order = new RepairOrder();
-            order.setClient(client);
+            order.setEmployee(employee);
             order.setCompany(company);
             order.setDevice(deviceService.getDeviceInfo(device));
             order.setDescription(description);
@@ -82,11 +82,12 @@ public class UserController extends BaseController {
             order.setStatus("Nowy");
 
             repairOrderService.sendRepairOrder(order);
+            descriptionArea.setText(null);
+            tableView.getSelectionModel().clearSelection();
             AlertUtil.informationAlert("Zgłoszenie zostało wysłane\nKliknij OK aby wyłączyć okno");
-        } catch (Exception e){
+        } catch (Exception e) {
             AlertUtil.errorAlert("Wystąpił błąd podczas wysyłania zgłoszenia.");
         }
-        descriptionArea.setText(null);
     }
 
     private Long getSelectedDevice(){
@@ -105,13 +106,13 @@ public class UserController extends BaseController {
 
     @FXML
     private void onStatusButtonClicked(){
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/pl/naprawy/fxml/Status-scene-user.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/pl/naprawy/fxml/Status-scene-employee.fxml"));
         try {
             Parent root = fxmlLoader.load();
-            UserController userController = fxmlLoader.getController();
-            ServiceInjector.injectAllServices(userController);
-            userController.setUsername(username);
-            userController.setClientInfo(username);
+            EmployeeController employeeController = fxmlLoader.getController();
+            ServiceInjector.injectAllServices(employeeController);
+            employeeController.setUsername(username);
+            employeeController.setEmployeeInfo(username);
             Stage stage = (Stage) statusButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
@@ -124,7 +125,7 @@ public class UserController extends BaseController {
     @FXML
     private void onExportClicked() {
         try {
-            userExportService.exportFile(clientService.getClientByLogin(username), repairOrderService.getUserOrderStatus(getClient().getId()));
+            employeeExportService.exportFile(employeeService.getEmployeeByLogin(username), repairOrderService.getEmployeeOrderStatus(getEmployee().getId()));
             AlertUtil.informationAlert("Pomyślnie pobrano dane\nKliknij OK aby wyłączyć okno");
         } catch (Exception e) {
             AlertUtil.errorAlert("Wystąpił błąd podczas pobierania danych.\nSpróbuj ponownie później.");

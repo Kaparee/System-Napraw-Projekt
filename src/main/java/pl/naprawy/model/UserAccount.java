@@ -15,8 +15,8 @@ public class UserAccount {
     private String role;
 
     @OneToOne
-    @JoinColumn(name = "client_id", referencedColumnName = "id")
-    private Client client;
+    @JoinColumn(name = "employee_id", referencedColumnName = "id")
+    private Employee employee;
 
     @OneToOne
     @JoinColumn(name = "technician_id", referencedColumnName = "id")
@@ -54,12 +54,12 @@ public class UserAccount {
         this.role = role;
     }
 
-    public Client getClient() {
-        return client;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     public Technician getTechnician() {

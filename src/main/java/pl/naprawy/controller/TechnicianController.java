@@ -32,7 +32,7 @@ public class TechnicianController extends BaseController{
         descriptionColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDescription()));
         createdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(DateFormatterUtil.format(cellData.getValue().getCreated_at())));
         updatedColumn.setCellValueFactory(cellData -> new SimpleStringProperty(DateFormatterUtil.format(cellData.getValue().getUpdated_at())));
-        clientColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getClient().getName()));
+        clientColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEmployee().getName()));
         companyAdressNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCompany().getName() +"\n"+ cellData.getValue().getCompany().getAddress()));
         deviceColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDevice().getBrand() +"\n"+ cellData.getValue().getDevice().getModel()));
     }
@@ -70,7 +70,7 @@ public class TechnicianController extends BaseController{
                 descriptionLabel.setText(selected.getDescription());
                 createdLabel.setText(DateFormatterUtil.format(selected.getCreated_at()));
                 updatedLabel.setText(DateFormatterUtil.format(selected.getUpdated_at()));
-                companyLabel.setText("Pracownik: "+selected.getClient().getName()+"\nFirma: "+selected.getCompany().getName()+" "+selected.getCompany().getAddress());
+                companyLabel.setText("Pracownik: "+selected.getEmployee().getName()+"\nFirma: "+selected.getCompany().getName()+" "+selected.getCompany().getAddress());
                 deviceLabel.setText(selected.getDevice().getBrand() +" "+ selected.getDevice().getModel());
             }
         });
@@ -121,12 +121,11 @@ public class TechnicianController extends BaseController{
             technicianService.claimRaport(getTechnician().getId(), getSelectedReport(), now);
             showFreeReport();
             AlertUtil.informationAlert("Pomyślnie przjęto zgłoszenie.\nKliknij OK aby wyłączyć okno");
-            descriptionColumn.setText(null);
-            createdColumn.setText(null);
-            updatedColumn.setText(null);
-            clientColumn.setText(null);
-            companyAdressNameColumn.setText(null);
-            deviceColumn.setText(null);
+            descriptionLabel.setText(null);
+            createdLabel.setText(null);
+            updatedLabel.setText(null);
+            companyLabel.setText(null);
+            deviceLabel.setText(null);
         } catch (Exception e){
             AlertUtil.errorAlert("Wystąpił błąd podczas przypisywania zgłoszenia.\nSpróbuj ponownie później");
         }

@@ -14,8 +14,8 @@ public class Device {
     private String serial_number;
 
     @ManyToOne
-    @JoinColumn(name = "client_id")
-    private Client client;
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
 
     public Long getId() {
         return id;
@@ -57,12 +57,12 @@ public class Device {
         this.serial_number = serial_number;
     }
 
-    public Client getClient() {
-        return client;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     public Device() {

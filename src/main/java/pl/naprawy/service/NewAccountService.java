@@ -4,7 +4,7 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-import pl.naprawy.model.Client;
+import pl.naprawy.model.Employee;
 import pl.naprawy.model.Company;
 import pl.naprawy.model.UserAccount;
 import pl.naprawy.util.AlertUtil;
@@ -24,27 +24,27 @@ public class NewAccountService implements INewAccountService{
         }
     }
 
-    public void createNewClient(Client client, Long company_id){
+    public void createNewEmployee(Employee employee, Long company_id){
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
             Company company = session.get(Company.class, company_id);
-            client.setCompany(company);
-            session.save(client);
+            employee.setCompany(company);
+            session.save(employee);
             session.getTransaction().commit();
         } catch (HibernateException e) {
             AlertUtil.errorAlert("Wystąpił błąd podczas tworzenia użytkownika");
         }
     }
 
-    public void createNewAccount(Client client, String username, String password){
+    public void createNewAccount(Employee employee, String username, String password){
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
             UserAccount userAccount = new UserAccount();
             userAccount.setSecured_password(BCrypt.withDefaults().hashToString(12, password.toCharArray()));
-            userAccount.setClient(client);
+            userAccount.setEmployee(employee);
             userAccount.setLogin(username);
             userAccount.setTechnician(null);
-            userAccount.setRole("CLIENT");
+            userAccount.setRole("EMPLOYEE");
             session.save(userAccount);
             session.getTransaction().commit();
         } catch (HibernateException e) {
@@ -67,7 +67,7 @@ public class NewAccountService implements INewAccountService{
 
     public boolean isEmailTaken(String email) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            String hql = "SELECT COUNT(c) FROM Client c WHERE c.email = :email";
+            String hql = "SELECT COUNT(e) FROM Employee e WHERE e.email = :email";
             Query<Long> query = session.createQuery(hql, Long.class);
             query.setParameter("email", email);
             return query.uniqueResult() > 0;
@@ -80,7 +80,7 @@ public class NewAccountService implements INewAccountService{
 
     public boolean isPhoneNumberTaken(String phoneNumber) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            String hql = "SELECT COUNT(c) FROM Client c WHERE c.phone = :phoneNumber";
+            String hql = "SELECT COUNT(e) FROM Employee e WHeRE e.phone = :phoneNumber";
             Query<Long> query = session.createQuery(hql, Long.class);
             query.setParameter("phoneNumber", phoneNumber);
             return query.uniqueResult() > 0;

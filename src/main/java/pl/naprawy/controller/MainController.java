@@ -28,7 +28,7 @@ public class MainController extends BaseController {
         try {
             int role = loginService.verifyLogin(username, password);
             switch (role) {
-                case 1 -> openUserPanel(username);
+                case 1 -> openEmployeePanel(username);
                 case 2 -> openTechnicianPanel(username);
                 default -> AlertUtil.errorAlert("Wystąpił błąd podczas logowania.\nPodano błędne dane lub konto nie istnieje!");
             }
@@ -44,6 +44,9 @@ public class MainController extends BaseController {
         try {
             Parent root = fxmlLoader.load();
 
+            NewAccountController newAccountController = fxmlLoader.getController();
+            ServiceInjector.injectAllServices(newAccountController);
+            newAccountController.setCompaniesInfo();
             Stage stage = (Stage) loginButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
@@ -54,14 +57,14 @@ public class MainController extends BaseController {
         }
     }
 
-    private void openUserPanel(String username){
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/pl/naprawy/fxml/Main-scene-user.fxml"));
+    private void openEmployeePanel(String username){
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/pl/naprawy/fxml/Main-scene-employee.fxml"));
         try {
             Parent root = fxmlLoader.load();
-            UserController userController = fxmlLoader.getController();
-            ServiceInjector.injectAllServices(userController);
-            userController.setUsername(username);
-            userController.setClientInfo(username);
+            EmployeeController employeeController = fxmlLoader.getController();
+            ServiceInjector.injectAllServices(employeeController);
+            employeeController.setUsername(username);
+            employeeController.setEmployeeInfo(username);
             Stage stage = (Stage) loginButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();

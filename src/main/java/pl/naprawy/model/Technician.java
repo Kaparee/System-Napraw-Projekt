@@ -14,7 +14,6 @@ public class Technician {
     private String name;
     private String phone;
     private String email;
-    private String specialization;
 
     public Long getId() {
         return id;
@@ -46,14 +45,6 @@ public class Technician {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getSpecialization() {
-        return specialization;
-    }
-
-    public void setSpecialization(String specialization) {
-        this.specialization = specialization;
     }
 
     public Technician() {

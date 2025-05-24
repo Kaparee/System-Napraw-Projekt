@@ -35,9 +35,9 @@ public class RepairOrderService implements IRepairOrderService {
         }
     }
 
-    public List<RepairOrder> getUserOrderStatus(Long id){
+    public List<RepairOrder> getEmployeeOrderStatus(Long id){
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
-            String hql = "SELECT c FROM RepairOrder c WHERE c.client.id = :id ORDER BY c.status ASC";
+            String hql = "SELECT ro FROM RepairOrder ro WHERE ro.employee.id = :id ORDER BY ro.status ASC";
             Query<RepairOrder> query = session.createQuery(hql, RepairOrder.class);
             query.setParameter("id", id);
             return query.list();

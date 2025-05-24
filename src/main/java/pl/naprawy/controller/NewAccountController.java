@@ -8,7 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import pl.naprawy.model.Client;
+import pl.naprawy.model.Employee;
 import pl.naprawy.model.Company;
 import pl.naprawy.service.NewAccountService;
 import pl.naprawy.util.AlertUtil;
@@ -25,10 +25,8 @@ public class NewAccountController extends BaseController{
 
     @FXML
     public void initialize(){
-        newAccountService = new NewAccountService();
         nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
         addressColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAddress()));
-        setCompaniesInfo();
     }
 
     public void setCompaniesInfo(){
@@ -72,9 +70,9 @@ public class NewAccountController extends BaseController{
 
         if (valiAll() && getSelectedCompany()!=null){
             try {
-                Client client = new Client(nameField.getText(), phoneField.getText(), emailField.getText());
-                newAccountService.createNewClient(client, getSelectedCompany());
-                newAccountService.createNewAccount(client, usernameField.getText(), passwordField.getText());
+                Employee employee = new Employee(nameField.getText(), phoneField.getText(), emailField.getText());
+                newAccountService.createNewEmployee(employee, getSelectedCompany());
+                newAccountService.createNewAccount(employee, usernameField.getText(), passwordField.getText());
                 AlertUtil.informationAlert("Konto dla "+nameField.getText()+" zostało poprawnie utworzone");
                 tableView.getSelectionModel().clearSelection();
                 nameField.setText(null);

@@ -1,6 +1,5 @@
 package pl.naprawy.controller;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +14,6 @@ import pl.naprawy.util.AlertUtil;
 import pl.naprawy.util.DateFormatterUtil;
 import pl.naprawy.util.ServiceInjector;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,7 +54,7 @@ public class TechnicianReportController extends TechnicianController{
                 descriptionLabel.setText(selected.getDescription());
                 createdLabel.setText(DateFormatterUtil.format(selected.getCreated_at()));
                 updatedLabel.setText(DateFormatterUtil.format(selected.getUpdated_at()));
-                companyLabel.setText("Pracownik: "+selected.getClient().getName()+"\nFirma: "+selected.getCompany().getName()+" "+selected.getCompany().getAddress());
+                companyLabel.setText("Pracownik: "+selected.getEmployee().getName()+"\nFirma: "+selected.getCompany().getName()+" "+selected.getCompany().getAddress());
                 deviceLabel.setText(selected.getDevice().getBrand() +" "+ selected.getDevice().getModel());
             }
         });
@@ -88,7 +86,7 @@ public class TechnicianReportController extends TechnicianController{
     @FXML
     public void onExportClicked(){
         try {
-            technicianExportService.exportFile(technicianService.getTechnicianByLogin(username), technicianCompanyService.getTechnicianCompanies(getTechnician().getId()), repairOrderService.getUserOrderStatus(getClient().getId()));
+            technicianExportService.exportFile(technicianService.getTechnicianByLogin(username), technicianCompanyService.getTechnicianCompanies(getTechnician().getId()), repairOrderService.getEmployeeOrderStatus(getEmployee().getId()));
             AlertUtil.informationAlert("Pomyślnie pobrano dane\nKliknij OK aby wyłączyć okno");
         } catch (Exception e) {
             AlertUtil.errorAlert("Wystąpił błąd podczas pobierania danych.\nSpróbuj ponownie później.");
@@ -149,7 +147,7 @@ public class TechnicianReportController extends TechnicianController{
             Parent root = fxmlLoader.load();
             NewDeviceController controller = fxmlLoader.getController();
             ServiceInjector.injectAllServices(controller);
-            controller.getClients(getTechnician().getId());
+            controller.getEmployees(getTechnician().getId());
             Stage stage = new Stage();
 
             stage.setTitle("NAPRAW.IO");
@@ -168,7 +166,7 @@ public class TechnicianReportController extends TechnicianController{
             Parent root = fxmlLoader.load();
             DeleteEmployeeController controller = fxmlLoader.getController();
             ServiceInjector.injectAllServices(controller);
-            controller.getClients(getTechnician().getId());
+            controller.getEmployees(getTechnician().getId());
             controller.setUsername(username);
             Stage stage = new Stage();
 

@@ -17,7 +17,7 @@ import pl.naprawy.util.ServiceInjector;
 import java.util.List;
 import java.util.Optional;
 
-public class UserStatusController extends UserController {
+public class EmployeeStatusController extends EmployeeController {
     @FXML private Button reportButton, deleteButton;
     @FXML private TableView<RepairOrder> tableView;
     @FXML private TableColumn<RepairOrder, String> createdColumn, updatedColumn, descriptionColumn, technicianColumn, deviceColumn, statusColumn;
@@ -25,8 +25,8 @@ public class UserStatusController extends UserController {
 
     @Override
     @FXML
-    public void setClientInfo(String username) {
-        super.setClientInfo(username);
+    public void setEmployeeInfo(String username) {
+        super.setEmployeeInfo(username);
         showInformation();
     }
 
@@ -51,13 +51,13 @@ public class UserStatusController extends UserController {
 
     @FXML
     public void onReportButtonClicked(){
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/pl/naprawy/fxml/Main-scene-user.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/pl/naprawy/fxml/Main-scene-employee.fxml"));
         try {
             Parent root = fxmlLoader.load();
-            UserController userController = fxmlLoader.getController();
-            ServiceInjector.injectAllServices(userController);
-            userController.setUsername(username);
-            userController.setClientInfo(username);
+            EmployeeController employeeController = fxmlLoader.getController();
+            ServiceInjector.injectAllServices(employeeController);
+            employeeController.setUsername(username);
+            employeeController.setEmployeeInfo(username);
             Stage stage = (Stage) reportButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
@@ -68,7 +68,7 @@ public class UserStatusController extends UserController {
 
     @FXML
     public void showInformation(){
-        List<RepairOrder> orders = repairOrderService.getUserOrderStatus(getClient().getId());
+        List<RepairOrder> orders = repairOrderService.getEmployeeOrderStatus(getEmployee().getId());
         tableView.setItems(FXCollections.observableArrayList(orders));
     }
 
@@ -110,7 +110,7 @@ public class UserStatusController extends UserController {
     @FXML
     private void onExportClicked() {
         try {
-            userExportService.exportFile(clientService.getClientByLogin(username), repairOrderService.getUserOrderStatus(getClient().getId()));
+            employeeExportService.exportFile(employeeService.getEmployeeByLogin(username), repairOrderService.getEmployeeOrderStatus(getEmployee().getId()));
             AlertUtil.informationAlert("Pomyślnie pobrano dane\nKliknij OK aby wyłączyć okno");
         } catch (Exception e) {
             AlertUtil.errorAlert("Wystąpił błąd podczas pobierania danych.\nSpróbuj ponownie później.");

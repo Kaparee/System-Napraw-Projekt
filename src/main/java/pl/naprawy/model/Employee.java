@@ -3,7 +3,7 @@ package pl.naprawy.model;
 import javax.persistence.*;
 
 @Entity
-public class Client {
+public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -56,10 +56,10 @@ public class Client {
         this.company = company;
     }
 
-    public Client() {
+    public Employee() {
     }
 
-    public Client(String name, String phone, String email) {
+    public Employee(String name, String phone, String email) {
         this.name = name;
         this.phone = phone;
         this.email = email;

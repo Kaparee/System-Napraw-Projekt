@@ -12,7 +12,7 @@ import java.util.List;
 public class DeviceService implements IDeviceService{
     public Device getDeviceInfo(Long id){
         try(Session session = HibernateUtil.getSessionFactory().openSession()) {
-            String hql = "SELECT c FROM Device c WHERE c.id = :id";
+            String hql = "SELECT d FROM Device d WHERE d.id = :id";
             Query<Device> query = session.createQuery(hql, Device.class);
             query.setParameter("id", id);
             return query.uniqueResult();
@@ -22,9 +22,9 @@ public class DeviceService implements IDeviceService{
         }
     }
 
-    public List<Device> getUserDevice(Long id){
+    public List<Device> getEmployeeDevice(Long id){
         try(Session session = HibernateUtil.getSessionFactory().openSession()) {
-            String hql = "SELECT d FROM Device d WHERE d.client.id = :id";
+            String hql = "SELECT d FROM Device d WHERE d.employee.id = :id";
             Query<Device> query = session.createQuery(hql, Device.class);
             query.setParameter("id", id);
             return query.list();

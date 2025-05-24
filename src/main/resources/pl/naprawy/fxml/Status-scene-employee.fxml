@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane prefHeight="700.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.naprawy.controller.UserStatusController"
+<StackPane prefHeight="700.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.naprawy.controller.EmployeeStatusController"
            stylesheets="@../css/style.css">
     <children>
         <HBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="20.0">
@@ -23,7 +23,7 @@
                             <children>
                                 <ImageView fitHeight="103.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../images/client.png" />
+                                        <Image url="@../images/employee.png" />
                                     </image>
                                 </ImageView>
                                 <Label fx:id="nameLabel" text="Imię" styleClass="name-surname" maxWidth="250.0" wrapText="true" />
