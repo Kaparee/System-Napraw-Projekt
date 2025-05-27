@@ -15,7 +15,7 @@
          <TextField fx:id="usernameField" promptText="jan.kowalski" />
          <Label text="Hasło" wrapText="true" />
          <PasswordField fx:id="passwordField" />
-         <Button fx:id="loginButton" onAction="#onLoginClicked" text="Zaloguj" wrapText="true" />
+         <Button fx:id="loginButton" onAction="#onLoginClicked" text="Zaloguj" wrapText="true" defaultButton="true"/>
          <Button fx:id="newAccount" onAction="#createNewAccount" text="Załóż nowe konto pracownika" wrapText="true" />
       </children>
       </VBox>

@@ -61,6 +61,31 @@ public class RepairOrderService implements IRepairOrderService {
         }
     }
 
+    public void closeOrder(Long id, Timestamp now) {
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            String hql = "UPDATE RepairOrder SET status= 'Zakończono', updated_at = :now WHERE id = :id";
+            Query query = session.createQuery(hql);
+            query.setParameter("now", now);
+            query.setParameter("id", id);
+            int updatedEntities = query.executeUpdate();
+            transaction.commit();
+            if (updatedEntities > 0) {
+                AlertUtil.informationAlert("Zgłoszenie zostało pomyślnie zakończone.");
+            } else {
+                AlertUtil.errorAlert("Nie znaleziono zgłoszenia o podanym ID lub nie dokonano zmian.");
+            }
+
+        } catch (HibernateException e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            AlertUtil.errorAlert("Wystąpił błąd podczas zamykania zgłoszenia: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
     public List<RepairOrder> getTechnicianReports(Long id){
         try(Session session = HibernateUtil.getSessionFactory().openSession()) {
             String hql = "SELECT ro FROM RepairOrder ro WHERE ro.technician.id = :id AND ro.status != 'Zakończono'";

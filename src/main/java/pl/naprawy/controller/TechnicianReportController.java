@@ -14,6 +14,7 @@ import pl.naprawy.util.AlertUtil;
 import pl.naprawy.util.DateFormatterUtil;
 import pl.naprawy.util.ServiceInjector;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -86,10 +87,11 @@ public class TechnicianReportController extends TechnicianController{
     @FXML
     public void onExportClicked(){
         try {
-            technicianExportService.exportFile(technicianService.getTechnicianByLogin(username), technicianCompanyService.getTechnicianCompanies(getTechnician().getId()), repairOrderService.getEmployeeOrderStatus(getEmployee().getId()));
-            AlertUtil.informationAlert("Pomyślnie pobrano dane\nKliknij OK aby wyłączyć okno");
+            technicianExportService.exportFile(technicianService.getTechnicianByLogin(username), technicianCompanyService.getTechnicianCompanies(getTechnician().getId()), repairOrderService.getTechnicianReports(getTechnician().getId()));
+            AlertUtil.informationAlert("Pomyślnie pobrano dane.\nKliknij OK aby wyłączyć okno");
         } catch (Exception e) {
             AlertUtil.errorAlert("Wystąpił błąd podczas pobierania danych.\nSpróbuj ponownie później.");
+            e.printStackTrace();
         }
     }
 
@@ -128,7 +130,8 @@ public class TechnicianReportController extends TechnicianController{
         Long selected = getSelectedReport();
         Optional<ButtonType> result = AlertUtil.confirmAlert("Zamknięcie zgłoszenia");
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            repairOrderService.deleteOrder(selected);
+            Timestamp now = new Timestamp(System.currentTimeMillis());
+            repairOrderService.closeOrder(selected, now);
             showFreeReport();
             descriptionLabel.setText("");
             createdLabel.setText("");
